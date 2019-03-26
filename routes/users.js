@@ -10,7 +10,7 @@ userRouter.use(bodyParser.json());
 
 userRouter.options('*', cors.corsWithOptions, (req, res) => { res.sendStatus(200); });
 
-userRouter.get('/', cors.corsWithOptions, authenticate.verifyUser, authenticate.verifyEmployee,
+userRouter.get('/', cors.corsWithOptions, 
     (req, res, next) => {
         let queryStr = {...req.query, employee: false};
         User.find(queryStr)
