@@ -45,7 +45,7 @@ userRouter.post('/signup', cors.corsWithOptions, (req, res, next) => {
                 passport.authenticate('local')(req, res, () => {
                     res.statusCode = 200;
                     res.setHeader('Content-Type', 'application/json');
-                    res.json({ succuss: true, msg: 'Registration Successful!' });
+                    res.json({ success: true, msg: 'Registration Successful!' });
                 });
             }
         });
