@@ -25,6 +25,7 @@ This document aims to provide a full-fledged documentation of Application Progra
 Sign up an user with username and password.
 
 **BODY**
+
 |  FIELD   |  Type  |   description   |
 | :------: | :----: | :-------------: |
 | username | String | user's username |
@@ -72,6 +73,7 @@ HTTP/1.1 500 Internal Server Error
 Sign up an employee with username and password.
 
 **BODY**
+
 |  FIELD   |  Type  |   description   |
 | :------: | :----: | :-------------: |
 | username | String | user's username |
@@ -398,6 +400,7 @@ Get a profile of a user matched with the username in params of the request.  Use
 
 **SUCCESS**
 | Field | Type | Description |
+
 | :-----: | :----: | :-----------: |
 | _id | String | object id of the profile |
 | userId | String | object id of an user |
