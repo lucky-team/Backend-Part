@@ -399,8 +399,8 @@ HTTP/1.1 500 Internal Server Error
 Get a profile of a user matched with the username in params of the request.  Users only get their own profiles.
 
 **SUCCESS**
-| Field | Type | Description |
 
+| Field | Type | Description |
 | :-----: | :----: | :-----------: |
 | _id | String | object id of the profile |
 | userId | String | object id of an user |
