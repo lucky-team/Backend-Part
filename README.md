@@ -1053,7 +1053,66 @@ HTTP/1.1 500 Internal Server Error
 }
 ```
 
-#### 5. Reject a Claim
+#### 5. Accept a Claim
+
+**GET:**
+
+```
+/claims/accept/:claimId
+```
+
+**DESCRIPTION**
+
+Employees are able to accept a claim which has been assigned to him.
+
+**PARAMETER**
+
+|  Field  |  Type   |    Description     |
+| :-----: | :-----: | :----------------: |
+| success | Boolean | Success or Failure |
+|   msg   | String  |      message       |
+
+**SUCCESS**
+
+```json
+HTTP/1.1 200 OK
+{
+    "success": true,
+    "msg": "Claim Acception Successful!"
+}
+```
+
+**FAILURE**
+
+```json
+HTTP/1.1 401 Unauthorized
+{
+    "success": false,
+    "err": "Unauthorized User"
+}
+```
+
+```json
+HTTP/1.1 401 Unauthorized
+{
+    "err": {
+        "name": "UnauthorizedError",
+        "message": "Claim has been assigned to another employee"
+    }
+}
+```
+
+```json
+HTTP/1.1 500 Internal Server Error
+{
+    "err": {
+        "name": "ClaimNotPendingError",
+        "message": "A claim cannot be assigned again"
+    }
+}
+```
+
+#### 6. Reject a Claim
 
 **GET:**
 
@@ -1063,7 +1122,7 @@ HTTP/1.1 500 Internal Server Error
 
 **DESCRIPTION**
 
-Employees are able to assign a claim to himself.
+Employees are able to reject a claim which has been assigned to him.
 
 **PARAMETER**
 
