@@ -10,7 +10,8 @@ var helmet = require('helmet');
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
-var insuranceRouter = require('./routes/insurances');
+var insuranceRouter = require('./routes/insuranceRouter');
+var claimRouter = require('./routes/claimRouter');
 
 var mongoose = require('mongoose');
 
@@ -44,6 +45,7 @@ app.use('/users', usersRouter);
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/insurances', insuranceRouter);
+app.use('/claims', claimRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

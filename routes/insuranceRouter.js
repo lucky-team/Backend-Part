@@ -3,7 +3,7 @@ var bodyParser = require('body-parser');
 var authenticate = require('../authenticate');
 var cors = require('./cors');
 
-var Insurances = require('../models/insurance');
+var Insurances = require('../models/insurances');
 var insuranceRouter = express.Router();
 insuranceRouter.use(bodyParser.json());
 
@@ -12,7 +12,11 @@ insuranceRouter.route('/')
     res.sendStatus(200);
 })
 .get(cors.cors, authenticate.verifyUser, (req, res, next) => {
-    let queryStr = {...req.query, user: req.user._id};
+    let queryStr = {}
+    if (req.user.employee)
+        queryStr = req.query;
+    else
+        queryStr = {...req.query, user: req.user._id};
     Insurances.find(queryStr)
     .select('-user')
     .then((insurances) => {
@@ -33,7 +37,7 @@ insuranceRouter.route('/')
     .then((insurance) => {
         res.statsuCode = 200;
         res.setHeader('Content-Type', 'application/json');
-        res.json(insurance);
+        res.json({ succuss: true, msg: 'Insurance Creation Successful!' });
     }, (err) => next(err))
     .catch((err) => next(err));
 })
@@ -42,7 +46,11 @@ insuranceRouter.route('/')
     res.end('PUT operation not supported on ' + req.baseUrl);
 })
 .delete(cors.corsWithOptions, authenticate.verifyUser, authenticate.verifyEmployee, (req, res, next) => {
-    let queryStr = {...req.query, user: req.user._id};
+    let queryStr = {}
+    if (req.user.employee)
+        queryStr = req.query;
+    else
+        queryStr = {...req.query, user: req.user._id};
     Insurances.deleteMany(queryStr)
     .then((resp) => {
         res.statsuCode = 200;

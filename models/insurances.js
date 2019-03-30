@@ -76,7 +76,11 @@ var insuranceSchema = new Schema({
         type: Number,
         validate: {
             validator: (val) => {
-                return /^[1-3]$/.test(val)
+                if (val % 30 == 0 && val != 0) {
+                    return true;
+                } else {
+                    return false;
+                }
             },
             message: 'duration can only be multiples of 30.'
         },

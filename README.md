@@ -10,9 +10,9 @@ This document aims to provide a full-fledged documentation of Application Progra
 
 ## Application Programming Interface
 
-### User module
+### 1. User module
 
-#### Signup
+#### 1. Signup
 
 **POST:**
 
@@ -31,6 +31,13 @@ Sign up an user with username and password.
 | username | String | user's username |
 | password | String | user's password |
 
+```json
+{
+    "username": "user",
+    "password": "pwd"
+}
+```
+
 **PARAMETER**
 
 |  FIELD  |  Type   |    description     |
@@ -60,7 +67,7 @@ HTTP/1.1 500 Internal Server Error
 }
 ```
 
-#### Register Employee
+#### 2. Register Employee
 
 **POST:**
 
@@ -79,6 +86,13 @@ Sign up an employee with username and password.
 | username | String | user's username |
 | password | String | user's password |
 
+```json
+{
+    "username": "user",
+    "password": "pwd"
+}
+```
+
 **PARAMETER**
 
 |  FIELD  |  Type   |    description     |
@@ -108,7 +122,7 @@ HTTP/1.1 500 Internal Server Error
 }
 ```
 
-#### Login
+#### 3. Login
 
 **POST:**
 
@@ -126,6 +140,13 @@ Sign in an user with username and password. Server will send back a token for ot
 | :------: | :----: | :-------------: |
 | username | String | user's username |
 | password | String | user's password |
+
+```json
+{
+    "username": "user",
+    "password": "pwd"
+}
+```
 
 **PARAMETER**
 
@@ -180,8 +201,7 @@ HTTP/1.1 500 Internal Server Error
 }
 ```
 
-
-### Profile module
+### 2. Profile module
 
 
 #### Get Users' Profiles
@@ -532,21 +552,23 @@ HTTP/1.1 500 Internal Server Error
 }
 ```
 
-### Insurances Module
+### 3. Insurances Module
 
-#### Get Insurances of A User
+#### 1. Get Insurances
 
 **GET:**
 
 ```
-/purchased_insurances
+/insurances[?<query string>]
 ```
 
 **DESCRIPTION**
 
-Authorized user can request a list of insurance policies they purchased.
+Authorized users are able to request a list of insurance policies **only they purchased**.
 
-**SUCCESS**
+Employees are able to query any insurances.
+
+**PARAMETER**
 
 | Field |  Type  |            Description            |
 | :---: | :----: | :-------------------------------: |
@@ -558,8 +580,103 @@ Authorized user can request a list of insurance policies they purchased.
 | expireDate | Date | ISO Date |
 | createdAt | Date |              ISO Date               |
 | updatedAt | Date |              ISO Date               |
-| insuredId | String | object id of the insured person |
-| insuredName | String | insured name |
+| insured._id | String | object id of the insured person |
+| lastname | String | insured lastname |
+| firstname | String | insured lastname |
+| socialId | String | identification card number |
+| gender | String | gender |
+| age | Number | age |
+| phone | String | format: [+area code] [phone number] |
+| email | String | email address |
+| bankUserName | String | user's name in the bank |
+| bankAccount | String | account |
+| bankName | String | name of bank |
+
+**SUCCESS**
+
+```json
+HTTP/1.1 200 OK
+[{
+    "success": true,
+    "insurances": [{
+        "_id": "5c9a5f3223caa630803248c1",
+        "plan": 2,
+        "level": 3,
+        "startDate": "2019-03-26T12:41:45.977Z",
+        "duration": 30,
+        "expireDate": "2019-04-05T12:41:45.977Z",
+        "insured": {
+            "_id": "5c9a5f3223caa630803248c2",
+            "lastname": "Smith",
+            "firstname": "Jobs",
+            "socialId": "100101x12aw3f21waf",
+            "gender": "male",
+            "age": 21,
+            "phone": "+86 12345678901",
+            "email": "qwe.eqw@qw.asd",
+            "bankName": "Bank of China",
+            "bankAccount": "1435fw1a3f1wa",
+            "bankUsername": "Smith Jobs",
+            "createdAt": "2019-03-26T17:19:46.886Z",
+            "updatedAt": "2019-03-26T17:19:46.886Z"
+        },
+        "createdAt": "2019-03-26T17:19:46.886Z",
+        "updatedAt": "2019-03-26T17:19:46.886Z"
+    }]
+}]
+```
+
+**FAILURE**
+
+```json
+HTTP/1.1 401 Unauthorized
+{
+    "success": false,
+    "err": "Unauthorized User"
+}
+```
+
+```json
+HTTP/1.1 403 Forbidden
+{
+    "success": false,
+    "err": "Forbidden Operation"
+}
+```
+
+```json
+HTTP/1.1 500 Internal Server Error
+{
+    "success": false,
+    "err": "Internal Server Error"
+}
+```
+
+#### 2. Create Insurances
+
+**POST:**
+
+```
+/insurances
+```
+
+**DESCRIPTION**
+
+Authorized users are able to create insurances.
+
+Employees **cannot** do this method.
+
+**BODY**
+
+| Field |  Type  |            Description            |
+| :---: | :----: | :-------------------------------: |
+| plan  | Number |           type of plan            |
+| level | Number |   level of the insurance policy   |
+| startDate | String | ISO Date |
+| duration | Number | how many days this policy is active |
+| expireDate | Date | ISO Date |
+| lastname | String | insured lastname |
+| firstname | String | insured lastname |
 | socialId | String | identification card number |
 | gender | String | gender |
 | age | Number | age |
@@ -570,107 +687,161 @@ Authorized user can request a list of insurance policies they purchased.
 | bankName | String | name of bank |
 
 ```json
-HTTP/1.1 200 OK
 {
-    "success": true,
-    "insurances": [{
-        "_id": "5c7e0aefa60cd62550b700a5",
-        "plan": 1,
-        "level": 2,
-        "startDate": "2019-03-015T05:36:54.810Z",
-        "duration": 60,
-        "expireDate": "2019-05-014T05:36:54.810Z",
-        "createdAt": "2019-03-015T05:36:54.810Z",
-        "updatedAt": "2019-03-015T05:36:54.810Z",
-        "insuredId": "5c7e0aefa60cd62550b700a6",
-        "insuredName": "Steve Jobs",
-        "socialId": "123456197007011234",
-        "gender": "male",
-        "age": 20,
-        "phone": "+86 18812345678",
-        "email": "xxxx.xxxx@gmail.com",
-        "backUserName": "Steve Jobs",
-        "bankAccount": "xxxxxxxxxxxxxxxxx",
-        "bankName": "Bank of China"
-    }]
+	"plan": 1,
+	"level": 1,
+	"startDate": "2019-03-26T12:41:45.977Z",
+	"duration": 60,
+	"expireDate": "2019-05-25T12:41:45.977Z",
+	"insured": {
+		"lastname": "Smith",
+		"firstname": "Jobs",
+		"socialId": "100101x12aw3f21waf",
+		"gender": "male",
+		"age": 21,
+		"phone": "+86 12345678901",
+		"email": "qwe.eqw@qw.asd",
+		"bankName": "Bank of China",
+		"bankAccount": "1435fw1a3f1wa",
+		"bankUsername": "Smith Jobs"
+	}
 }
 ```
-
-**FAILURE**
-
-```json
-HTTP/1.1 401 Unauthorized
-{
-    "success": false,
-    "err": "Unauthorized User"
-}
-```
-
-```json
-HTTP/1.1 403 Forbidden
-{
-    "success": false,
-    "err": "Forbidden Operation"
-}
-```
-
-```json
-HTTP/1.1 500 Internal Server Error
-{
-    "success": false,
-    "err": "Internal Server Error"
-}
-```
-
-### Claim Module
-
-#### Get Claims
-
-**GET:**
-
-```
-/claims
-```
-
-**DESCRIPTION**
-
-Employees can get a list of claims.
 
 **PARAMETER**
 
-|    Field    |      Type      |           Description            |
-| :---------: | :------------: | :------------------------------: |
-|     _id     |     String     |      object id of the claim      |
-| insuranceId | String | object id of the insurance claimed |
-| accLocation |     String     |    accident happened location    |
-|   accDate   |      Date      | ISO Date, accident happened date |
-| claimAmount |    Currency    |           claim amount           |
-| claimReason |     String     |           claim reason           |
-| claimFiles  | List of String |  a list of path of claim files   |
-|   status    |     String     |          accept, notAccept, processing, pending          |
-| createdAt | Date |              ISO Date               |
-| updatedAt | Date |              ISO Date               |
+|  FIELD  |  Type   |    description     |
+| :-----: | :-----: | :----------------: |
+| success | Boolean | Success or failure |
+|   msg   | String  |  Detailed message  |
 
 **SUCCESS**
 
 ```json
 HTTP/1.1 200 OK
 {
-    "success": true,
-    "claims": [{
-        "_id": "5c7e0af6a60cd62550b700a6",
-        "insuranceId": "5c7e0af6a60cd62550b700a6",
-        "accLocation": "Dublin, Ireland",
-        "accDate": "2019-03-12T05:36:59.149Z",
-        "claimAmount": 23333,
-        "claimReason": "I bought insurance. So you should pay the bill.",
-        "claimFiles": ["/claims/creds.doc", "/claims/loo.png"],
-        "status": "processing",
-        "rejectReason": "(response if it is rejected)"
-        "createdAt": "2019-02-12T05:36:59.149Z",
-        "updatedAt": "2019-03-12T05:36:59.149Z"
-    }]
+    "succuss": true,
+    "msg": "Insurance Creation Successful!"
 }
+```
+
+**FAILURE**
+
+```json
+HTTP/1.1 401 Unauthorized
+{
+    "success": false,
+    "err": "Unauthorized User"
+}
+```
+
+```json
+HTTP/1.1 403 Forbidden
+{
+    "success": false,
+    "err": "Forbidden Operation"
+}
+```
+
+```json
+HTTP/1.1 500 Internal Server Error
+{
+    "success": false,
+    "err": "Internal Server Error"
+}
+```
+
+#### 3. Delete Insurances
+
+**Delete:**
+
+```
+/insurances[?<query string>]
+```
+
+**DESCRIPTION**
+
+Employees are able to delete insurances.
+
+**PARAMETER**
+
+|    FIELD     |  Type  |    description     |
+| :----------: | :----: | :----------------: |
+|      n       | Number | match items count  |
+|      ok      | Number | Success or Failure |
+| deletedCount | Number |   deleted count    |
+
+**SUCCESS**
+
+```json
+HTTP/1.1 200 OK
+{
+    "n": 1,
+    "ok": 1,
+    "deletedCount": 1
+}
+```
+
+**FAILURE**
+
+```json
+HTTP/1.1 500 Internal Server Error
+{
+    "success": false,
+    "err": "Internal Server Error"
+}
+```
+
+
+### 4. Claim Module
+
+#### 1. Get Claims
+
+**GET:**
+
+```
+/claims[?<query string>]
+```
+
+**DESCRIPTION**
+
+Authorized users are able to request a list of **claims of them**.
+
+Employees are able to query any insurances.
+
+**PARAMETER**
+
+|    Field    |      Type      |           Description            |
+| :---------: | :------------: | :------------------------------: |
+|    _id    |     Number     |               object id of a claim                |
+|  status   |     String     | ['accepted', 'rejected', 'processing', 'pending'] |
+|   files   | List of String |                   path of files                   |
+| location  |     String     |                 accident location                 |
+|   date    |      Date      |                   accident date                   |
+|  amount   |     Number     |                   claim amount                    |
+|  reason   |     String     |                   claim reason                    |
+|   user    |     String     |             object id of the claimer              |
+| insurance |     String     |            object id of the insurance             |
+| createdAt |      Date      |                     ISO date                      |
+| updatedAt |      Date      |                     ISO date                      |
+
+**SUCCESS**
+
+```json
+[{
+    "files": [],
+    "status": "processing",
+    "_id": "5c9f8b8f1caf490c40aa456f",
+    "location": "Beijing",
+    "date": "2019-03-26T15:32:02.230Z",
+    "amount": 3000,
+    "reason": "I want money",
+    "insurance": "5c9a5f3223caa630803248c1",
+    "user": "5c9a1e099d919727e86fd916",
+    "employee": "5c9a45f189c84c2afc86114d",
+    "createdAt": "2019-03-30T15:30:23.419Z",
+    "updatedAt": "2019-03-30T15:30:23.419Z"
+}]
 ```
 **FAILURE**
 
@@ -698,7 +869,7 @@ HTTP/1.1 500 Internal Server Error
 }
 ```
 
-#### Create A Claim
+#### 2. Create Claims
 
 **POST:**
 
@@ -708,39 +879,36 @@ HTTP/1.1 500 Internal Server Error
 
 **DESCRIPTION**
 
-Authorized users are able to new a claim.
+Authorized users are able to request a list of **claims of them**.
 
-**PARAMETER**
+Employees are able to query any insurances.
+
+**BODY**
 
 |    Field    |      Type      |           Description            |
 | :---------: | :------------: | :------------------------------: |
-|     _id     |     String     |      object id of the claim      |
-| insuranceId | String | object id of the insurance claimed |
-| accLocation |     String     |    accident happened location    |
-|   accDate   |      Date      | ISO Date, accident happened date |
-| claimAmount |    Currency    |           claim amount           |
-| claimReason |     String     |           claim reason           |
-| claimFiles  | List of Files |  a list of claim files  |
-| createdAt | Date |              ISO Date               |
-| updatedAt | Date |              ISO Date               |
+|    location    |     String     |             accident location |
+|   date    |      Date      |                   accident date                   |
+| amount | Number | claim amount |
+| insurance |     String     |                 object id of the insurance                 |
+
+```json
+{
+	"location": "Beijing",
+	"date": "2019-03-26T15:32:02.230Z",
+	"amount": 3000,
+	"reason": "I want money",
+	"insurance": "5c9a5f3223caa630803248c1"
+}
+```
 
 **SUCCESS**
 
 ```json
 HTTP/1.1 200 OK
 {
-    "success": true,
-    "claims": [{
-        "_id": "5c7e0af6a60cd62550b700a6",
-        "insuranceId": "5c7e0af6a60cd62550b700a6",
-        "accLocation": "Dublin, Ireland",
-        "accDate": "2019-03-12T05:36:59.149Z",
-        "claimAmount": 23333,
-        "claimReason": "I bought insurance. So you should pay the bill.",
-        "claimFiles": ["/claims/creds.doc", "/claims/loo.png"]
-        "createdAt": "2019-02-12T05:36:59.149Z",
-        "updatedAt": "2019-03-12T05:36:59.149Z"
-    }]
+    "succuss": true,
+    "msg": "Claim Creation Successful!"
 }
 ```
 **FAILURE**
@@ -768,4 +936,181 @@ HTTP/1.1 500 Internal Server Error
     "err": "Internal Server Error"
 }
 ```
+
+#### 3. Delete Claims
+
+**DELETE:**
+
+```
+/claims[?<query string>]
+```
+
+**DESCRIPTION**
+
+Authorized users are able to delete **claims of them**.
+
+Employees are able to delete any insurances.
+
+**PARAMETER**
+
+| Field |  Type  |    Description     |
+| :---: | :----: | :----------------: |
+|   n   | Number |   deleted amount   |
+|  ok   | Number | Success or Failure |
+
+**SUCCESS**
+
+```json
+HTTP/1.1 200 OK
+{
+    "n": 2,
+    "ok": 1
+}
+```
+
+**FAILURE**
+
+```json
+HTTP/1.1 401 Unauthorized
+{
+    "success": false,
+    "err": "Unauthorized User"
+}
+```
+
+```json
+HTTP/1.1 403 Forbidden
+{
+    "success": false,
+    "err": "Forbidden Operation"
+}
+```
+
+```json
+HTTP/1.1 500 Internal Server Error
+{
+    "success": false,
+    "err": "Internal Server Error"
+}
+```
+
+#### 4. Assign a Claim
+
+**GET:**
+
+```
+/claims/assign/:claimId
+```
+
+**DESCRIPTION**
+
+Employees are able to assign a claim to himself.
+
+**PARAMETER**
+
+|  Field  |  Type   |    Description     |
+| :-----: | :-----: | :----------------: |
+| success | Boolean | Success or Failure |
+|   msg   | String  |      message       |
+
+**SUCCESS**
+
+```json
+HTTP/1.1 200 OK
+{
+    "success": true,
+    "msg": "Claim Assignment Successful!"
+}
+```
+
+**FAILURE**
+
+```json
+HTTP/1.1 401 Unauthorized
+{
+    "success": false,
+    "err": "Unauthorized User"
+}
+```
+
+```json
+HTTP/1.1 401 Unauthorized
+{
+    "err": {
+        "name": "UnauthorizedError",
+        "message": "Claim has been assigned to another employee"
+    }
+}
+```
+
+```json
+HTTP/1.1 500 Internal Server Error
+{
+    "err": {
+        "name": "ClaimNotPendingError",
+        "message": "A claim cannot be assigned again"
+    }
+}
+```
+
+#### 5. Reject a Claim
+
+**GET:**
+
+```
+/claims/reject/:claimId
+```
+
+**DESCRIPTION**
+
+Employees are able to assign a claim to himself.
+
+**PARAMETER**
+
+|  Field  |  Type   |    Description     |
+| :-----: | :-----: | :----------------: |
+| success | Boolean | Success or Failure |
+|   msg   | String  |      message       |
+
+**SUCCESS**
+
+```json
+HTTP/1.1 200 OK
+{
+    "success": true,
+    "msg": "Claim Rejection Successful!"
+}
+```
+
+**FAILURE**
+
+```json
+HTTP/1.1 401 Unauthorized
+{
+    "success": false,
+    "err": "Unauthorized User"
+}
+```
+
+```json
+HTTP/1.1 401 Unauthorized
+{
+    "err": {
+        "name": "UnauthorizedError",
+        "message": "Claim has been assigned to another employee"
+    }
+}
+```
+
+```json
+HTTP/1.1 500 Internal Server Error
+{
+    "err": {
+        "name": "ClaimNotPendingError",
+        "message": "A claim cannot be assigned again"
+    }
+}
+```
+
+
 
