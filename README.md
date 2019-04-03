@@ -1011,7 +1011,7 @@ Employees are able to query any insurances.
 
 ```json
 [{
-    "files": [],
+    "files": ["1554290755783_100.jpg"],
     "status": "processing",
     "_id": "5c9f8b8f1caf490c40aa456f",
     "location": "Beijing",
@@ -1078,13 +1078,16 @@ Employees are able to query any insurances.
 | insurance |     String     |                 object id of the insurance                 |
 
 ```json
+// form data
+// key of files can be anything
 {
 	"type": 1,
     "location": "Beijing",
 	"date": "2019-03-26T15:32:02.230Z",
 	"amount": 3000,
 	"reason": "I want money",
-    "files": [],
+    "file_a": "file_a",
+    "file_b": "file_a",
 	"insurance": "5c9a5f3223caa630803248c1"
 }
 ```

@@ -18,7 +18,6 @@ insuranceRouter.route('/')
     else
         queryStr = {...req.query, user: req.user._id};
     Insurances.find(queryStr)
-    .select('-user')
     .then((insurances) => {
         res.statsuCode = 200;
         res.setHeader('Content-Type', 'application/json');

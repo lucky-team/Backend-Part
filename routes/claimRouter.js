@@ -2,9 +2,16 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const authenticate = require('../authenticate');
 const formidable = require('formidable');
+const mongoose = require('mongoose');
 const fs = require('fs');
 const path = require('path');
 const cors = require('./cors');
+
+const Claims = require('../models/claims');
+const Insurances = require('../models/insurances');
+const claimRouter = express.Router();
+claimRouter.use(bodyParser.json());
+claimRouter.use(bodyParser.urlencoded({ extended: true }));
 
 const saveFile = (file, relativePath) => {
     let filePath = file.path;
@@ -25,11 +32,6 @@ const saveFile = (file, relativePath) => {
     })
     return fileName;
 }
-
-const Claims = require('../models/claims');
-const claimRouter = express.Router();
-claimRouter.use(bodyParser.json());
-claimRouter.use(bodyParser.urlencoded({ extended: true }));
 
 claimRouter.route('/')
 .options(cors.corsWithOptions, (req, res) => {
@@ -55,9 +57,15 @@ claimRouter.route('/')
     form.keepExtensions = true;
     form.parse(req, (err, fields, files) => {
         let {employee, files: deleted, ...claim} = {...fields, user: req.user._id, status: 'pending'};
-
         Claims.create(claim)
         .then((claim) => {
+            Insurances.findOne({_id: claim.insurance})
+            .then((insurance) => {
+                if (insurance.user.equals(req.user._id)) {
+                    insurance.claim = claim._id;
+                    insurance.save();
+                }
+            })
             let relativePath = `../../store/insurances/${fields.insurance}/${claim._id}`
             claim['files'] = [];
             for (let key in files) {
@@ -65,12 +73,11 @@ claimRouter.route('/')
             }
             claim.save()
             .then((claim) => {
-                res.json(claim);
+                res.json({success: true, msg: 'Claim Creation Successful!'});
             })
-        })
-    })
-
-     
+        }, (err) => next(err))
+        .catch((err) => next(err));
+    });
 })
 .delete(cors.corsWithOptions, authenticate.verifyUser, (req, res, next) => {
     let queryStr;
@@ -78,12 +85,25 @@ claimRouter.route('/')
         queryStr = req.query;
     else
         queryStr = {...req.query, user: req.user._id};
-    Claims.deleteMany(queryStr)
-    .then((resp) => {
-        res.statusCode = 200;
-        res.setHeader('Content-Type', 'application/json');
-        res.json(resp);
-    }, (err) => next(err))
+    Claims.find(queryStr)
+    .then((claims) => {
+        claims.map(claim => {
+            Insurances.findOne({_id: claim.insurance})
+            .then(insurance => {
+                insurance.claim = undefined;
+                insurance.save();
+            });
+        })
+    })
+    .then(() => {
+        Claims.deleteMany(queryStr)
+        .then((resp) => {
+            res.statusCode = 200;
+            res.setHeader('Content-Type', 'application/json');
+            res.json(resp);
+        }, (err) => next(err))
+        .catch((err) => next(err));
+    })
     .catch((err) => next(err));
 })
 
@@ -116,11 +136,16 @@ claimRouter.route('/accept/:claimId')
             res.statusCode = 500;
             res.setHeader('Content-Type', 'application/json');
             return res.json({err: {name: "ClaimNotProcessingError", "message": "Claim cannot be accepted"}});
-        } else if (String(claim.employee) !== req.user._id) {
+        } else if (!claim.employee.equals(req.user._id)) {
             res.statusCode = 401;
             res.setHeader('Content-Type', 'application/json');
             return res.json({err: {name: "UnauthorizedError", "message": "Claim has been assigned to another employee"}});
         }
+        Insurances.findOne({_id: claim.insurance})
+        .then(insurance => {
+            insurance.claim = undefined;
+            insurance.save();
+        });
         claim.employee = req.user._id;
         claim.status = 'accepted';
         claim.save()
@@ -141,14 +166,18 @@ claimRouter.route('/reject/:claimId')
             res.statusCode = 500;
             res.setHeader('Content-Type', 'application/json');
             return res.json({err: {name: "ClaimNotProcessingError", "message": "Claim cannot be rejected"}});
-        } else if (String(claim.employee) !== req.user._id) {
+        } else if (claim.employee.equals(req.user._id)) {
             console.log(`employee: '${typeof(claim.employee)}'\nid: '${typeof(req.user._id)}'`);
             res.statusCode = 500;
             res.setHeader('Content-Type', 'application/json');
             return res.json({err: {name: "UnauthorizedError", "message": "Claim has been assigned to another employee"}});
         }
-        claim.employee = req.user._id;
-        claim.status = 'rejected';
+        Insurances.findOne({_id: claim.insurance})
+        .then(insurance => {
+            insurance.claim = undefined;
+            insurance.save();
+        });
+        claim = {...claim, employee: req.user._id, status: 'rejected'};
         claim.save()
         .then((claim) => {
             res.statusCode = 200;
