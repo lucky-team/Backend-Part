@@ -1304,7 +1304,7 @@ HTTP/1.1 500 Internal Server Error
 
 #### 6. Reject a Claim
 
-**GET:**
+**POST:**
 
 ```
 /claims/reject/:claimId
@@ -1313,6 +1313,18 @@ HTTP/1.1 500 Internal Server Error
 **DESCRIPTION**
 
 Employees are able to reject a claim which has been assigned to him.
+
+**BODY**
+
+|    FIELD    |  TYPE  | DESCRIPTION  |
+| :---------: | :----: | :----------: |
+| rejectReson | String | reject reson |
+
+```json
+{
+	"rejectReason": "Please give detailed reson and file a new claim"
+}
+```
 
 **PARAMETER**
 
@@ -1350,6 +1362,18 @@ HTTP/1.1 401 Unauthorized
     }
 }
 ```
+
+```json
+HTTP/1.1 500 Internal Server Error
+{
+    "err": {
+        "name": "NoRejectResonError",
+        "message": "No reject reson given"
+    }
+}
+```
+
+
 
 ```json
 HTTP/1.1 500 Internal Server Error

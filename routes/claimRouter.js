@@ -56,7 +56,7 @@ claimRouter.route('/')
     form.uploadDir = path.join(__dirname, '../../tmp');
     form.keepExtensions = true;
     form.parse(req, (err, fields, files) => {
-        let {employee, files: deleted, ...claim} = {...fields, user: req.user._id, status: 'pending'};
+        let {employee, rejectReason, files: deleted, ...claim} = {...fields, user: req.user._id, status: 'pending'};
         Claims.create(claim)
         .then((claim) => {
             Insurances.findOne({_id: claim.insurance})
@@ -159,25 +159,30 @@ claimRouter.route('/accept/:claimId')
 })
 
 claimRouter.route('/reject/:claimId')
-.get(cors.corsWithOptions, authenticate.verifyUser, authenticate.verifyEmployee, (req, res, next) => {
+.post(cors.corsWithOptions, authenticate.verifyUser, authenticate.verifyEmployee, (req, res, next) => {
     Claims.findOne({_id: req.params.claimId})
     .then((claim) => {
         if (claim.status !== 'processing') {
             res.statusCode = 500;
             res.setHeader('Content-Type', 'application/json');
             return res.json({err: {name: "ClaimNotProcessingError", "message": "Claim cannot be rejected"}});
-        } else if (claim.employee.equals(req.user._id)) {
-            console.log(`employee: '${typeof(claim.employee)}'\nid: '${typeof(req.user._id)}'`);
+        } else if (!claim.employee.equals(req.user._id)) {
             res.statusCode = 500;
             res.setHeader('Content-Type', 'application/json');
             return res.json({err: {name: "UnauthorizedError", "message": "Claim has been assigned to another employee"}});
+        } else if (!req.body.rejectReason) {
+            res.statusCode = 500;
+            res.setHeader('Content-Type', 'application/json');
+            return res.json({err: {name: "NoRejectResonError", "message": "No reject reson given"}});
         }
         Insurances.findOne({_id: claim.insurance})
         .then(insurance => {
             insurance.claim = undefined;
             insurance.save();
         });
-        claim = {...claim, employee: req.user._id, status: 'rejected'};
+        claim.employee = req.user._id;
+        claim.status = 'rejected';
+        claim.rejectReason = req.body.rejectReason;
         claim.save()
         .then((claim) => {
             res.statusCode = 200;
