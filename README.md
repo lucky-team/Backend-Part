@@ -10,9 +10,9 @@ This document aims to provide a full-fledged documentation of Application Progra
 
 ## Models
 
-### Claim
+### 1. Claim
 
-```json
+```js
 {
     type: {
         type: Number,
@@ -63,6 +63,127 @@ This document aims to provide a full-fledged documentation of Application Progra
         type: 'ObjectId',
         ref: 'User'
     }
+}
+```
+
+### 2. User
+
+```js
+{
+    employee: {
+        type: Boolean,
+        default: false
+    },
+    username: {
+		tpye: String,
+        required: true
+    },
+    password: {
+        tpye: String,
+        required: true
+    }
+}
+```
+
+### 3. Insured
+
+```js
+{
+    lastname: {
+        type: String,
+        required: true
+    },
+    firstname: {
+        type: String,
+        required: true
+    },
+    socialId: {
+        type: String,
+        required: true
+    },
+    gender: {
+        type: String,
+        enum: ['male', 'female'],
+        required: true
+    },
+    age: {
+        type: Number,
+        required: true
+    },
+    phone: {
+        type: String,
+        required: true
+    },
+    email: {
+        type: String,
+        required: true
+    },
+    bankName: {
+        type: String,
+        required: true
+    },
+    bankAccount: {
+        type: String,
+        required: true
+    },
+    bankUsername: {
+        type: String,
+        required: true
+    }
+}
+```
+
+### 4. Insurance
+
+```js
+{
+    plan: {
+        type: Number,
+        validate: {
+            validator: (val) => {
+                return /^[1-3]$/.test(val)
+            },
+            message: 'plan can only be 1, 2, or 3.'
+        },
+        required: true
+    },
+    level: {
+        type: Number,
+        validate: {
+            validator: (val) => {
+                return /^[1-3]$/.test(val)
+            },
+            message: 'level can only be 1, 2, or 3.'
+        },
+        required: true
+    },
+    startDate: {
+        type: Date,
+        required: true
+    },
+    duration: {
+        type: Number,
+        validate: {
+            validator: (val) => {
+                if (val % 30 == 0 && val != 0) {
+                    return true;
+                } else {
+                    return false;
+                }
+            },
+            message: 'duration can only be multiples of 30.'
+        },
+        required: true
+    },
+    expireDate: {
+        type: Date,
+        required: true
+    },
+    user: {
+        type: 'ObjectId',
+        ref: 'User'
+    },
+    insured: insured
 }
 ```
 
