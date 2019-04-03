@@ -1002,6 +1002,7 @@ Employees are able to query any insurances.
 |   date    |      Date      |                   accident date                   |
 |  amount   |     Number     |                   claim amount                    |
 |  reason   |     String     |                   claim reason                    |
+| rejectReason | String | reject reason |
 |   user    |     String     |             object id of the claimer              |
 | insurance |     String     |            object id of the insurance             |
 | createdAt |      Date      |                     ISO date                      |
@@ -1385,5 +1386,41 @@ HTTP/1.1 500 Internal Server Error
 }
 ```
 
+### 5. Resources Module
 
+#### 1. Get Claim Files
 
+**GET:**
+
+```
+/res/claim-files/:insuranceId/:claimId/:filename
+```
+
+**DESCRIPTION**
+
+Download a file of a claim. Only owner or employee who covers this case have access to the file.
+
+**SUCCESS**
+
+```
+HTTP/1.1 200 OK
+// file data
+```
+
+**FAILURE**
+
+```json
+HTTP/1.1 401 Unauthorized
+{
+    "success": false,
+    "err": "Unauthorized User"
+}
+```
+
+```json
+HTTP/1.1 500 Internal Server Error
+{
+    "success": false,
+    "err": "Internal Server Error"
+}
+```

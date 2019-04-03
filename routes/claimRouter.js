@@ -2,10 +2,10 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const authenticate = require('../authenticate');
 const formidable = require('formidable');
-const mongoose = require('mongoose');
 const fs = require('fs');
 const path = require('path');
 const cors = require('./cors');
+const config = require('../config');
 
 const Claims = require('../models/claims');
 const Insurances = require('../models/insurances');
@@ -66,7 +66,7 @@ claimRouter.route('/')
                     insurance.save();
                 }
             })
-            let relativePath = `../../store/insurances/${fields.insurance}/${claim._id}`
+            let relativePath = `${config.storePath}/insurances/${fields.insurance}/${claim._id}`
             claim['files'] = [];
             for (let key in files) {
                 claim['files'].push(saveFile(files[key], relativePath));
