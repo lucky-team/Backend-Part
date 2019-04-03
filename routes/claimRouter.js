@@ -1,11 +1,35 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const authenticate = require('../authenticate');
+const formidable = require('formidable');
+const fs = require('fs');
+const path = require('path');
 const cors = require('./cors');
+
+const saveFile = (file, relativePath) => {
+    let filePath = file.path;
+    let targetDir = path.join(__dirname, relativePath);
+    if (!fs.existsSync(targetDir)) {
+        fs.mkdirSync(targetDir, {recursive: true}, (err) => {
+            if (err) {
+                console.info(`mkdir err: ${file.name} ${file.path}\nErr: ${err}`);
+            }
+        });
+    }
+    let fileName = new Date().getTime() + '_' + file.name;
+    let targetFile = path.join(targetDir, fileName);
+    fs.rename(filePath, targetFile, (err) => {
+        if (err) {
+            console.info(err);
+        }
+    })
+    return fileName;
+}
 
 const Claims = require('../models/claims');
 const claimRouter = express.Router();
 claimRouter.use(bodyParser.json());
+claimRouter.use(bodyParser.urlencoded({ extended: true }));
 
 claimRouter.route('/')
 .options(cors.corsWithOptions, (req, res) => {
@@ -26,26 +50,27 @@ claimRouter.route('/')
     .catch((err) => next(err));
 })
 .post(cors.corsWithOptions, authenticate.verifyUser, (req, res, next) => {
-    if (req.user.employee) {
-        res.statsuCode = 401;
-        res.setHeader('Content-Type', 'application/json');
-        return res.json({success: false, msg: 'Employee cannot create an claim!'});
-    }
-    let claims;
-    if (req.body.length) {
-        claims = req.body.map(claim => {
-            return {...claim, user: req.user._id, status: 'pending'};
-        });
-    } else {
-        claims = {...req.body, user: req.user._id, status: 'pending'};
-    }
-    Claims.create(claims)
-    .then((claim) => {
-        res.statusCode = 200;
-        res.setHeader('Content-Type', 'application/json');
-        res.json({ succuss: true, msg: 'Claim Creation Successful!' });
-    }, (err) => next(err))
-    .catch((err) => next(err));
+    let form = new formidable.IncomingForm();
+    form.uploadDir = path.join(__dirname, '../../tmp');
+    form.keepExtensions = true;
+    form.parse(req, (err, fields, files) => {
+        let {employee, files: deleted, ...claim} = {...fields, user: req.user._id, status: 'pending'};
+
+        Claims.create(claim)
+        .then((claim) => {
+            let relativePath = `../../store/insurances/${fields.insurance}/${claim._id}`
+            claim['files'] = [];
+            for (let key in files) {
+                claim['files'].push(saveFile(files[key], relativePath));
+            }
+            claim.save()
+            .then((claim) => {
+                res.json(claim);
+            })
+        })
+    })
+
+     
 })
 .delete(cors.corsWithOptions, authenticate.verifyUser, (req, res, next) => {
     let queryStr;

@@ -8,6 +8,66 @@
 
 This document aims to provide a full-fledged documentation of Application Programming Interface (API) waiting for requests sent from front ends to the back end server.
 
+## Models
+
+### Claim
+
+```json
+{
+    type: {
+        type: Number,
+        validate: {
+            validator: (val) => {
+                return /^[1-3]$/.test(val)
+            },
+            message: 'level can only be 1, 2, or 3.'
+        },
+        required: true
+    },
+    location: {
+        type: String,
+        required: true
+    },
+    date: {
+        type: Date,
+        required: true
+    },
+    amount: {
+        type: Currency,
+        required: true
+    },
+    reason: {
+        type: String,
+        required: true
+    },
+    files: [{
+        type: String
+    }],
+    status: {
+        type: String,
+        enum: ['accepted', 'rejected', 'processing', 'pending'],
+        default: 'pending',
+        required: true
+    },
+    insurance: {
+        type: 'ObjectId',
+        ref: 'Insurance',
+        required: true
+    },
+    user: {
+        type: 'ObjectId',
+        ref: 'User',
+        require: true
+    },
+    employee: {
+        type: 'ObjectId',
+        ref: 'User'
+    }
+}
+```
+
+
+
 ## Application Programming Interface
 
 ### 1. User module
@@ -815,6 +875,7 @@ Employees are able to query any insurances.
 | :---------: | :------------: | :------------------------------: |
 |    _id    |     Number     |               object id of a claim                |
 |  status   |     String     | ['accepted', 'rejected', 'processing', 'pending'] |
+| type | String | [1, 2, 3] |
 |   files   | List of String |                   path of files                   |
 | location  |     String     |                 accident location                 |
 |   date    |      Date      |                   accident date                   |
@@ -887,17 +948,22 @@ Employees are able to query any insurances.
 
 |    Field    |      Type      |           Description            |
 | :---------: | :------------: | :------------------------------: |
+| type | Number | [1, 2, 3] |
 |    location    |     String     |             accident location |
 |   date    |      Date      |                   accident date                   |
 | amount | Number | claim amount |
+| reason | String | claim reason |
+| files | File | claim files |
 | insurance |     String     |                 object id of the insurance                 |
 
 ```json
 {
-	"location": "Beijing",
+	"type": 1,
+    "location": "Beijing",
 	"date": "2019-03-26T15:32:02.230Z",
 	"amount": 3000,
 	"reason": "I want money",
+    "files": [],
 	"insurance": "5c9a5f3223caa630803248c1"
 }
 ```

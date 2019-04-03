@@ -4,6 +4,16 @@ require('mongoose-currency').loadType(mongoose);
 var Currency = mongoose.Types.Currency;
 
 var claimSchema = new Schema({
+    type: {
+        type: Number,
+        validate: {
+            validator: (val) => {
+                return /^[1-3]$/.test(val)
+            },
+            message: 'level can only be 1, 2, or 3.'
+        },
+        required: true
+    },
     location: {
         type: String,
         required: true
@@ -26,15 +36,18 @@ var claimSchema = new Schema({
     status: {
         type: String,
         enum: ['accepted', 'rejected', 'processing', 'pending'],
-        default: 'pending'
+        default: 'pending',
+        required: true
     },
     insurance: {
         type: 'ObjectId',
-        ref: 'Insurance'
+        ref: 'Insurance',
+        required: true
     },
     user: {
         type: 'ObjectId',
-        ref: 'User'
+        ref: 'User',
+        require: true
     },
     employee: {
         type: 'ObjectId',
