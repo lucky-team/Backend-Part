@@ -6,6 +6,10 @@ var User = new Schema({
     employee: {
         type: Boolean,
         default: false
+    },
+    profile: {
+        type: 'ObjectId',
+        ref: 'Profile'
     }
 }, {
     timestamps: true

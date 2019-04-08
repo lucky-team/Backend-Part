@@ -13,13 +13,15 @@ var usersRouter = require('./routes/users');
 var insuranceRouter = require('./routes/insuranceRouter');
 var claimRouter = require('./routes/claimRouter');
 var resRouter = require('./routes/resourcesRouter');
+var profileUser = require('./routes/profileRouter');
 
 var mongoose = require('mongoose');
 
 const url = config.mongoUrl;
 const connect = mongoose.connect(url, {
   useNewUrlParser: true,
-  useCreateIndex: true
+  useCreateIndex: true,
+  useFindAndModify: false
 });
 connect.then((db) => {
   console.log('Conntected correctly to MongoDB server');
@@ -48,6 +50,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/insurances', insuranceRouter);
 app.use('/claims', claimRouter);
 app.use('/res', resRouter);
+app.use('/profiles', profileUser);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

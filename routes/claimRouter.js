@@ -103,7 +103,7 @@ claimRouter.route('/')
             res.json(resp);
         }, (err) => next(err))
         .catch((err) => next(err));
-    })
+    }, (err) => next(err))
     .catch((err) => next(err));
 })
 
