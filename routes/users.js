@@ -96,7 +96,7 @@ userRouter.post('/login', cors.corsWithOptions, (req, res, next) => {
             let token = authenticate.getToken({ _id: req.user._id });
             res.statusCode = 200;
             res.setHeader('Content-Type', 'application/json');
-            res.json({ success: true, msg: 'Login Successfully!', token: token });
+            res.json({ success: true, msg: 'Login Successfully!', employee: user.employee, token: token });
         });
     })(req, res, next);
 });

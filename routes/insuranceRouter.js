@@ -18,6 +18,7 @@ insuranceRouter.route('/')
     else
         queryStr = {...req.query, user: req.user._id};
     Insurances.find(queryStr)
+    .populate('claim')
     .then((insurances) => {
         res.statsuCode = 200;
         res.setHeader('Content-Type', 'application/json');

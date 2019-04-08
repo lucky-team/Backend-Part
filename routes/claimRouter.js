@@ -170,10 +170,10 @@ claimRouter.route('/reject/:claimId')
             res.statusCode = 500;
             res.setHeader('Content-Type', 'application/json');
             return res.json({err: {name: "UnauthorizedError", "message": "Claim has been assigned to another employee"}});
-        } else if (!req.body.rejectReason) {
+        } else if (!req.body.rejectReason) {    
             res.statusCode = 500;
             res.setHeader('Content-Type', 'application/json');
-            return res.json({err: {name: "NoRejectResonError", "message": "No reject reson given"}});
+            return res.json({err: {name: "NoRejectResonError", "message": "No reject reason given"}});
         }
         Insurances.findOne({_id: claim.insurance})
         .then(insurance => {

@@ -778,7 +778,6 @@ Employees are able to query any insurances.
 ```json
 HTTP/1.1 200 OK
 [{
-    "success": true,
     "insurances": [{
         "_id": "5c9a5f3223caa630803248c1",
         "plan": 2,
@@ -1393,12 +1392,12 @@ HTTP/1.1 500 Internal Server Error
 **GET:**
 
 ```
-/res/claim-files/:insuranceId/:claimId/:filename
+/res/claim-files/:claimId/:filename
 ```
 
 **DESCRIPTION**
 
-Download a file of a claim. Only owner or employee who covers this case have access to the file.
+Download a file of a claim. Only owner or employee who covers this case is able to access to the file.
 
 **SUCCESS**
 
