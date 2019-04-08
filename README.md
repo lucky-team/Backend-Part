@@ -1101,7 +1101,100 @@ HTTP/1.1 500 Internal Server Error
 }
 ```
 
-#### 3. Delete Insurances
+#### 3. Update A Insurance
+
+**POST:**
+
+```
+/insurances/:insuranceId
+```
+
+**DESCRIPTION**
+
+Authorized users are able to update his/her own insurance policy's **plan or level**.
+
+**BODY**
+
+|    Field     |  Type  |             Description             |
+| :----------: | :----: | :---------------------------------: |
+|     plan     | Number |            type of plan             |
+|    level     | Number |    level of the insurance policy    |
+
+```json
+{
+	"plan": 1,
+	"level": 3
+}
+```
+
+**PARAMETER**
+
+|  FIELD  |  Type   |    description     |
+| :-----: | :-----: | :----------------: |
+| success | Boolean | Success or failure |
+|   msg   | String  |  Detailed message  |
+
+**SUCCESS**
+
+```json
+HTTP/1.1 200 OK
+{
+    "_id": "5ca4cd2a42bd16460c80ff5a",
+    "plan": 1,
+    "level": 3,
+    "startDate": "2019-03-26T12:41:45.977Z",
+    "duration": 60,
+    "expireDate": "2019-05-25T12:41:45.977Z",
+    "insured": {
+        "_id": "5ca4cd2a42bd16460c80ff5b",
+        "lastname": "Smith",
+        "firstname": "Jobs",
+        "socialId": "100101x12aw3f21waf",
+        "gender": "male",
+        "age": 21,
+        "phone": "+86 12345678901",
+        "email": "qwe.eqw@qw.asd",
+        "bankName": "Bank of China",
+        "bankAccount": "1435fw1a3f1wa",
+        "bankUsername": "Smith Jobs",
+        "createdAt": "2019-04-03T15:11:38.049Z",
+        "updatedAt": "2019-04-03T15:11:38.049Z"
+    },
+    "user": "5c9a1e099d919727e86fd916",
+    "createdAt": "2019-04-03T15:11:38.050Z",
+    "updatedAt": "2019-04-08T15:43:01.769Z",
+    "__v": 0,
+    "claim": "5ca4d1a196c8903f38d53857"
+}
+```
+
+**FAILURE**
+
+```json
+HTTP/1.1 401 Unauthorized
+{
+    "success": false,
+    "err": "Unauthorized User"
+}
+```
+
+```json
+HTTP/1.1 403 Forbidden
+{
+    "success": false,
+    "err": "Forbidden Operation"
+}
+```
+
+```json
+HTTP/1.1 500 Internal Server Error
+{
+    "success": false,
+    "err": "Internal Server Error"
+}
+```
+
+#### 4. Delete Insurances
 
 **Delete:**
 

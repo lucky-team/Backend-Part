@@ -41,10 +41,6 @@ insuranceRouter.route('/')
     }, (err) => next(err))
     .catch((err) => next(err));
 })
-.put(cors.corsWithOptions, authenticate.verifyUser, (req, res, next) => {
-    res.statusCode = 403;
-    res.end('PUT operation not supported on ' + req.baseUrl);
-})
 .delete(cors.corsWithOptions, authenticate.verifyUser, authenticate.verifyEmployee, (req, res, next) => {
     let queryStr = {}
     if (req.user.employee)
@@ -56,6 +52,27 @@ insuranceRouter.route('/')
         res.statsuCode = 200;
         res.setHeader('Content-Type', 'application/json');
         res.json(resp);
+    }, (err) => next(err))
+    .catch((err) => next(err));
+});
+
+insuranceRouter.route('/:insuranceId')
+.options(cors.corsWithOptions, (req, res) => {
+    res.sendStatus(200);
+})
+.put(cors.corsWithOptions, authenticate.verifyUser, (req, res, next) => {
+    let putObj = {};
+    if (req.body.plan)
+        putObj.plan = req.body.plan
+    if (req.body.level)
+        putObj.level = req.body.level
+    Insurances.findOneAndUpdate({user: req.user._id}, {
+        $set: putObj
+    }, { new: true })
+    .then((insurance) => {
+        res.statsuCode = 200;
+        res.setHeader('Content-Type', 'application/json');
+        res.json(insurance);
     }, (err) => next(err))
     .catch((err) => next(err));
 });
