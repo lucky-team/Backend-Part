@@ -40,6 +40,9 @@ This document aims to provide a full-fledged documentation of Application Progra
         type: String,
         required: true
     },
+    rejectReason: {
+        type: String,
+    },
     files: [{
         type: String
     }],
@@ -81,6 +84,10 @@ This document aims to provide a full-fledged documentation of Application Progra
     password: {
         tpye: String,
         required: true
+    },
+    profile: {
+        type: 'ObjectId',
+        ref: 'Profile'
     }
 }
 ```
@@ -184,6 +191,58 @@ This document aims to provide a full-fledged documentation of Application Progra
         ref: 'User'
     },
     insured: insured
+}
+```
+
+### 5. Profile
+
+```json
+{
+    firstname: {
+        type: String,
+        required: true
+    },
+    lastname: {
+        type: String,
+        required: true
+    },
+    gender: {
+        type: String,
+        enum: ['male', 'female'],
+        required: true
+    },
+    email: {
+        type: String,
+        required: true
+    },
+    phone: {
+        type: String,
+        required: true
+    },
+    socialId: {
+        type: String,
+        required: true
+    },
+    city: {
+        type: String,
+        required: true
+    },
+    province: {
+        type: String,
+        required: true
+    },
+    country: {
+        type: String,
+        required: true
+    },
+    age: {
+        type: Number,
+        required: true
+    },
+    user: {
+        type: 'ObjectId',
+        ref: 'User'
+    }
 }
 ```
 
@@ -385,24 +444,26 @@ HTTP/1.1 500 Internal Server Error
 ### 2. Profile module
 
 
-#### Get Users' Profiles
+#### 1. Get Users' Profiles
 
 **GET:**
 
 ``` 
- /profiles[?[query string, such as 'lastname=Yao&city=Beijing']]
+ /profiles[?<query string>]
 ```
 
 **DESCRIPTION**
 
-Get a list of profiles of all users matched with the query string from database. Only employees are able to do this operation.
+Employees are able to get a list of profiles of all users matched with the query string from database.
+
+Customers are able to get his/her own profile.
 
 **SUCCESS**
 
 |   Field   |  Type  |             Description             |
 | :-------: | :----: | :---------------------------------: |
 |    _id    | String |      object id of the profile       |
-|  userId   | String |        object id of an user         |
+|  user   | String |        object id of an user         |
 | lastname  | String |           user's lastname           |
 | firstname | String |          user's firstname           |
 | socialId  | String |     identification card number      |
@@ -418,24 +479,109 @@ Get a list of profiles of all users matched with the query string from database.
 
 ```json
 HTTP/1.1 200 OK
-{
-    "success": true,
-    "profiles": [{
-        "_id": "5c7e0af6a60cd62550b700a6",
-        "userId": "5c7e0afaa60cd62550b700a7",
-        "lastname": "Yao",
-        "firstname": "Captain",
-        "socialId": "123456197007011234",
+[
+    {
+        "_id": "5cab583bd992fb657aa2f1f3",
+        "firstname": "Smith",
+        "lastname": "Jobs",
         "gender": "male",
-        "age": 20,
-        "country": "China",
-        "province": "Beijing",
-        "city": "Beijing",
-        "phone": "+86 18812345678",
-        "email": "xxxx.xxxx@gmail.com",
-        "createdAt": "2019-03-15T05:36:59.149Z",
-        "updatedAt": "2019-03-15T08:24:53.215Z"
-    }]
+        "email": "12rft31t31@f3.com",
+        "phone": "+86 1325151153",
+        "socialId": "3215235251312",
+        "city": "Dublin",
+        "province": "Dublin",
+        "country": "Ireland",
+        "age": 66,
+        "user": "5c9d8d23e3d1826c915c2d8b",
+        "createdAt": "2019-04-08T14:18:35.564Z",
+        "updatedAt": "2019-04-08T14:18:35.564Z",
+        "__v": 0
+    }
+]
+```
+
+**FAILURE**
+
+```json
+HTTP/1.1 401 Unauthorized
+{
+    "success": false,
+    "err": "Unauthorized User"
+}
+```
+
+```json
+HTTP/1.1 403 Forbidden
+{
+    "success": false,
+    "err": "Forbidden Operation"
+}
+```
+
+```json
+HTTP/1.1 500 Internal Server Error
+{
+    "success": false,
+    "err": "Internal Server Error"
+}
+```
+
+#### 2. Create A Profile
+
+**POST:**
+
+```
+/profiles
+```
+
+**DESCRIPTION**
+
+Create a profile from the body of requests.
+
+**BODY**
+
+| Field | Type | Description |
+| :-----: | :----: | :-----------: |
+| lastname | String | user's lastname |
+| firstname | String | user's firstname |
+| socialId | String | identification card number |
+| gender | String | gender |
+| age | Number | age |
+| country | String | country name |
+| province | String | province name |
+| city | String | city name |
+| phone | String | format: +[area code] [phone number] |
+| email | String | email address |
+
+```json
+{
+	"firstname": "Smith",
+	"lastname": "Jobs",
+	"gender": "male",
+	"email": "12rft31t31@f3.com",
+	"phone": "+86 1325151153",
+	"socialId": "3215235251312",
+	"city": "Dublin",
+	"province": "Dublin",
+	"country": "Ireland",
+	"age": 66
+}
+```
+
+**PARAMETER**
+
+|  Field  |  Type   |    Description     |
+| :-----: | :-----: | :----------------: |
+| success | Boolean | Success or failure |
+|   msg   | String  |  Detailed message  |
+
+**SUCCESS**
+
+```json
+HTTP/1.1 200 OK
+{
+    "succuss": true,
+    "msg": "Profile Creation Successful!"
 }
 ```
 
@@ -465,7 +611,7 @@ HTTP/1.1 500 Internal Server Error
 }
 ```
 
-#### Create A Profile
+#### 3. Update A Profile
 
 **POST:**
 
@@ -477,31 +623,41 @@ HTTP/1.1 500 Internal Server Error
 
 Create a profile from the body of requests. Provided to customers.
 
+**BODY**
+
+|   Field   |  Type  |             Description             |
+| :-------: | :----: | :---------------------------------: |
+| lastname  | String |           user's lastname           |
+| firstname | String |          user's firstname           |
+| socialId  | String |     identification card number      |
+|  gender   | String |               gender                |
+|    age    | Number |                 age                 |
+|  country  | String |            country name             |
+| province  | String |            province name            |
+|   city    | String |              city name              |
+|   phone   | String | format: +[area code] [phone number] |
+|   email   | String |            email address            |
+
+```json
+{
+	"age": 71
+}
+```
+
 **PARAMETER**
 
-| Field | Type | Description |
-| :-----: | :----: | :-----------: |
-| _id | String | object id of the profile |
-| userId | String | object id of an user |
-| lastname | String | user's lastname |
-| firstname | String | user's firstname |
-| socialId | String | identification card number |
-| gender | String | gender |
-| age | Number | age |
-| country | String | country name |
-| province | String | province name |
-| city | String | city name |
-| phone | String | format: +[area code] [phone number] |
-| email | String | email address |
-| createdAt | Date |              ISO Date               |
-| updatedAt | Date |              ISO Date               |
+|  Field  |  Type   |    Description     |
+| :-----: | :-----: | :----------------: |
+| success | Boolean | Success or failure |
+|   msg   | String  |  Detailed message  |
 
 **SUCCESS**
 
 ```json
 HTTP/1.1 200 OK
 {
-    "success": true
+    "succuss": true,
+    "msg": "Profile Creation Successful!"
 }
 ```
 
@@ -524,14 +680,6 @@ HTTP/1.1 403 Forbidden
 ```
 
 ```json
-HTTP/1.1 409 Conflict
-{
-    "success": false,
-    "err": "Conflict Information"
-}
-```
-
-```json
 HTTP/1.1 500 Internal Server Error
 {
     "success": false,
@@ -539,25 +687,28 @@ HTTP/1.1 500 Internal Server Error
 }
 ```
 
+
+
 #### Delete Profiles
 
 **DELETE:**
 
 ```
-/profiles[?[query string, such as 'lastname=Yao&city=Beijing']]
+/profiles[?<query string>]
 ```
 
 **DESCRIPTION**
 
-Delete profiles of users matched with query string. Only employees are able to do this operation.
+Delete profiles of users matched with query string. Only this user or employees are able to do this operation.
 
 **SUCCESS**
 
 ```json
 HTTP/1.1 200 OK
 {
-    "success": true,
-    "counts": 5
+    "n": 1,
+    "ok": 1,
+    "deletedCount": 1
 }
 ```
 
@@ -777,16 +928,16 @@ Employees are able to query any insurances.
 
 ```json
 HTTP/1.1 200 OK
-[{
-    "insurances": [{
-        "_id": "5c9a5f3223caa630803248c1",
-        "plan": 2,
-        "level": 3,
+[
+    {
+        "_id": "5ca983fa93fe0045257aa2b1",
+        "plan": 1,
+        "level": 1,
         "startDate": "2019-03-26T12:41:45.977Z",
-        "duration": 30,
-        "expireDate": "2019-04-05T12:41:45.977Z",
+        "duration": 60,
+        "expireDate": "2019-05-25T12:41:45.977Z",
         "insured": {
-            "_id": "5c9a5f3223caa630803248c2",
+            "_id": "5ca983fb93fe0045257aa2b2",
             "lastname": "Smith",
             "firstname": "Jobs",
             "socialId": "100101x12aw3f21waf",
@@ -797,13 +948,32 @@ HTTP/1.1 200 OK
             "bankName": "Bank of China",
             "bankAccount": "1435fw1a3f1wa",
             "bankUsername": "Smith Jobs",
-            "createdAt": "2019-03-26T17:19:46.886Z",
-            "updatedAt": "2019-03-26T17:19:46.886Z"
+            "createdAt": "2019-04-07T05:00:43.003Z",
+            "updatedAt": "2019-04-07T05:00:43.003Z"
         },
-        "createdAt": "2019-03-26T17:19:46.886Z",
-        "updatedAt": "2019-03-26T17:19:46.886Z"
-    }]
-}]
+        "user": "5c9d8d23e3d1826c915c2d8b",
+        "createdAt": "2019-04-07T05:00:43.003Z",
+        "updatedAt": "2019-04-08T05:36:04.778Z",
+        "__v": 0,
+        "claim": {
+            "files": [
+                "1554701764771_5.png"
+            ],
+            "status": "pending",
+            "_id": "5caaddc4247dc15ac1d2b04e",
+            "type": 1,
+            "location": "Pingleyuan Beijing",
+            "date": "2019-03-30T12:59:15.306Z",
+            "amount": 300000,
+            "reason": "I want money!!",
+            "insurance": "5ca983fa93fe0045257aa2b1",
+            "user": "5c9d8d23e3d1826c915c2d8b",
+            "createdAt": "2019-04-08T05:36:04.770Z",
+            "updatedAt": "2019-04-08T05:36:04.773Z",
+            "__v": 1
+        }
+    }
+]
 ```
 
 **FAILURE**
