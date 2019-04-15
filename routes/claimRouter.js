@@ -57,6 +57,8 @@ claimRouter.route('/')
     form.keepExtensions = true;
     form.parse(req, (err, fields, files) => {
         let {employee, rejectReason, files: deleted, ...claim} = {...fields, user: req.user._id, status: 'pending'};
+        claim['amount'] = parseInt(claim['amount'])
+        claim['type'] = parseInt(claim['type'])
         Claims.create(claim)
         .then((claim) => {
             Insurances.findOne({_id: claim.insurance})
