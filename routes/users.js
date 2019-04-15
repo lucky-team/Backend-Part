@@ -12,7 +12,7 @@ userRouter.options('*', cors.corsWithOptions, (req, res) => { res.sendStatus(200
 
 userRouter.get('/', cors.corsWithOptions, 
     (req, res, next) => {
-        let queryStr = {...req.query, employee: false};
+        let queryStr = {...req.query};
         User.find(queryStr)
         .then((users) => {
             res.statusCode = 200;

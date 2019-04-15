@@ -108,6 +108,9 @@ claimRouter.route('/')
 })
 
 claimRouter.route('/assign/:claimId')
+.options(cors.corsWithOptions, (req, res) => {
+    res.sendStatus(200);
+})
 .get(cors.corsWithOptions, authenticate.verifyUser, authenticate.verifyEmployee, (req, res, next) => {
     Claims.findOne({_id: req.params.claimId})
     .then((claim) => {
@@ -129,6 +132,9 @@ claimRouter.route('/assign/:claimId')
 })
 
 claimRouter.route('/accept/:claimId')
+.options(cors.corsWithOptions, (req, res) => {
+    res.sendStatus(200);
+})
 .get(cors.corsWithOptions, authenticate.verifyUser, authenticate.verifyEmployee, (req, res, next) => {
     Claims.findOne({_id: req.params.claimId})
     .then((claim) => {
@@ -159,6 +165,9 @@ claimRouter.route('/accept/:claimId')
 })
 
 claimRouter.route('/reject/:claimId')
+.options(cors.corsWithOptions, (req, res) => {
+    res.sendStatus(200);
+})
 .post(cors.corsWithOptions, authenticate.verifyUser, authenticate.verifyEmployee, (req, res, next) => {
     Claims.findOne({_id: req.params.claimId})
     .then((claim) => {
