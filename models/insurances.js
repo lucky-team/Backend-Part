@@ -98,7 +98,10 @@ var insuranceSchema = new Schema({
         type: 'ObjectId',
         ref: 'Claim'
     },
-    insured: insuredSchema
+    insured: {
+        type: insuredSchema,
+        required: true
+    }
 }, {
     timestamps: true
 })
