@@ -33,7 +33,32 @@ exports.jwtPassport = passport.use(new JwtStrategy(opts,
         })
     }));
 
-exports.verifyUser = passport.authenticate('jwt', {session: false});
+exports.verifyUser = (req, res, next) => {
+    passport.authenticate('jwt', {session: false}, function(err, user, info) {
+        if (err) {
+            res.statusCode = 500;
+            res.setHeader('Content-Type', 'application/json');
+            res.json({
+                err: {
+                    name: 'VerifyError',
+                    message: err
+                }
+            })
+        }
+        if (!user) {
+            res.statusCode = 401;
+            res.setHeader('Content-Type', 'application/json');
+            return res.json({
+                err: {
+                    name: 'UnauthenticatedUserError',
+                    message: 'Not an authorized user'
+                }
+            });
+        }
+        req.user = user;
+        next();
+    })(req, res, next);
+}
 
 exports.verifyEmployee = (req, res, next) => {
     User.findOne({_id: req.user._id})
@@ -41,9 +66,14 @@ exports.verifyEmployee = (req, res, next) => {
         if (user.employee) {
             next();
         } else {
-            err = new Error('You are not authorizaed as an employee to perform this operation');
-            err.status = 403;
-            return next(err);
+            res.statusCode = 403;
+            res.setHeader('Content-Type', 'application/json');
+            return res.json({
+                err: {
+                    name: 'UnauthorizedUserError',
+                    message: 'You are not authorized as an employee to perform this operation'
+                }
+            })
         }
     }, (err) => next(err))
     .catch((err) => next(err));

@@ -345,7 +345,7 @@ Sign up an employee with username and password.
 ```json
 HTTP/1.1 200 OK
 {
-    "succuss": true,
+    "success": true,
     "msg": "Registration Successful!"
 }
 ```
@@ -412,8 +412,6 @@ HTTP/1.1 200 OK
 ```json
 HTTP/1.1 401 Unauthorized
 {
-    "success": false,
-    "msg": "Login Unsuccessfully!",
     "err": {
         "name": "IncorrectUsernameError",
         "message": "Password or username is incorrect"
@@ -424,11 +422,19 @@ HTTP/1.1 401 Unauthorized
 ```json
 HTTP/1.1 401 Unauthorized
 {
-    "success": false,
-    "msg": "Login Unsuccessfully!",
     "err": {
         "name": "IncorrectPasswordError",
         "message": "Password or username is incorrect"
+    }
+}
+```
+
+```json
+HTTP/1.1 401 Unauthorized
+// Lack of username or password
+{
+    "err": {
+        "message": "Missing credentials"
     }
 }
 ```
@@ -505,16 +511,20 @@ HTTP/1.1 200 OK
 ```json
 HTTP/1.1 401 Unauthorized
 {
-    "success": false,
-    "err": "Unauthorized User"
+    "err": {
+        "name": "UnauthenticatedUserError",
+        "message": "Not an authorized user"
+    }
 }
 ```
 
 ```json
-HTTP/1.1 403 Forbidden
+HTTP/1.1 {
 {
-    "success": false,
-    "err": "Forbidden Operation"
+    "err": {
+        "name": "UnauthorizedUserError",
+        "message": "You are not authorized as an employee to perform this operation"
+    }
 }
 ```
 
@@ -590,24 +600,30 @@ HTTP/1.1 200 OK
 ```json
 HTTP/1.1 401 Unauthorized
 {
-    "success": false,
-    "err": "Unauthorized User"
+    "err": {
+        "name": "UnauthenticatedUserError",
+        "message": "Not an authorized user"
+    }
 }
 ```
 
 ```json
 HTTP/1.1 403 Forbidden
 {
-    "success": false,
-    "err": "Forbidden Operation"
+    "err": {
+        "name": "UnauthorizedUserError",
+        "message": "You are not authorized as an employee to perform this operation"
+    }
 }
 ```
 
 ```json
 HTTP/1.1 500 Internal Server Error
 {
-    "success": false,
-    "err": "Internal Server Error"
+    "err": {
+        "name": "ProfileExistError",
+        "message": "Profile has been created"
+    }
 }
 ```
 
@@ -666,16 +682,20 @@ HTTP/1.1 200 OK
 ```json
 HTTP/1.1 401 Unauthorized
 {
-    "success": false,
-    "err": "Unauthorized User"
+    "err": {
+        "name": "UnauthenticatedUserError",
+        "message": "Not an authorized user"
+    }
 }
 ```
 
 ```json
 HTTP/1.1 403 Forbidden
 {
-    "success": false,
-    "err": "Forbidden Operation"
+    "err": {
+        "name": "UnauthorizedUserError",
+        "message": "You are not authorized as an employee to perform this operation"
+    }
 }
 ```
 
@@ -717,16 +737,20 @@ HTTP/1.1 200 OK
 ```json
 HTTP/1.1 401 Unauthorized
 {
-    "success": false,
-    "err": "Unauthorized User"
+    "err": {
+        "name": "UnauthenticatedUserError",
+        "message": "Not an authorized user"
+    }
 }
 ```
 
 ```json
 HTTP/1.1 403 Forbidden
 {
-    "success": false,
-    "err": "Forbidden Operation"
+    "err": {
+        "name": "UnauthorizedUserError",
+        "message": "You are not authorized as an employee to perform this operation"
+    }
 }
 ```
 
@@ -797,16 +821,20 @@ HTTP/1.1 200 OK
 ```json
 HTTP/1.1 401 Unauthorized
 {
-    "success": false,
-    "err": "Unauthorized User"
+    "err": {
+        "name": "UnauthenticatedUserError",
+        "message": "Not an authorized user"
+    }
 }
 ```
 
 ```json
 HTTP/1.1 403 Forbidden
 {
-    "success": false,
-    "err": "Forbidden Operation"
+    "err": {
+        "name": "UnauthorizedUserError",
+        "message": "You are not authorized as an employee to perform this operation"
+    }
 }
 ```
 
@@ -863,16 +891,20 @@ HTTP/1.1 200 OK
 ```json
 HTTP/1.1 401 Unauthorized
 {
-    "success": false,
-    "err": "Unauthorized User"
+    "err": {
+        "name": "UnauthenticatedUserError",
+        "message": "Not an authorized user"
+    }
 }
 ```
 
 ```json
 HTTP/1.1 403 Forbidden
 {
-    "success": false,
-    "err": "Forbidden Operation"
+    "err": {
+        "name": "UnauthorizedUserError",
+        "message": "You are not authorized as an employee to perform this operation"
+    }
 }
 ```
 
@@ -981,16 +1013,20 @@ HTTP/1.1 200 OK
 ```json
 HTTP/1.1 401 Unauthorized
 {
-    "success": false,
-    "err": "Unauthorized User"
+    "err": {
+        "name": "UnauthenticatedUserError",
+        "message": "Not an authorized user"
+    }
 }
 ```
 
 ```json
 HTTP/1.1 403 Forbidden
 {
-    "success": false,
-    "err": "Forbidden Operation"
+    "err": {
+        "name": "UnauthorizedUserError",
+        "message": "You are not authorized as an employee to perform this operation"
+    }
 }
 ```
 
@@ -1088,8 +1124,10 @@ HTTP/1.1 401 Unauthorized
 ```json
 HTTP/1.1 403 Forbidden
 {
-    "success": false,
-    "err": "Forbidden Operation"
+    "err": {
+        "name": "UnauthorizedUserError",
+        "message": "You are not authorized as an employee to perform this operation"
+    }
 }
 ```
 
@@ -1181,8 +1219,10 @@ HTTP/1.1 401 Unauthorized
 ```json
 HTTP/1.1 403 Forbidden
 {
-    "success": false,
-    "err": "Forbidden Operation"
+    "err": {
+        "name": "UnauthorizedUserError",
+        "message": "You are not authorized as an employee to perform this operation"
+    }
 }
 ```
 
@@ -1377,8 +1417,10 @@ HTTP/1.1 401 Unauthorized
 ```json
 HTTP/1.1 403 Forbidden
 {
-    "success": false,
-    "err": "Forbidden Operation"
+    "err": {
+        "name": "UnauthorizedUserError",
+        "message": "You are not authorized as an employee to perform this operation"
+    }
 }
 ```
 
@@ -1434,8 +1476,10 @@ HTTP/1.1 401 Unauthorized
 ```json
 HTTP/1.1 403 Forbidden
 {
-    "success": false,
-    "err": "Forbidden Operation"
+    "err": {
+        "name": "UnauthorizedUserError",
+        "message": "You are not authorized as an employee to perform this operation"
+    }
 }
 ```
 

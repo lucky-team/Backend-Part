@@ -143,11 +143,11 @@ claimRouter.route('/accept/:claimId')
         if (claim.status != 'processing') {
             res.statusCode = 500;
             res.setHeader('Content-Type', 'application/json');
-            return res.json({err: {name: "ClaimNotProcessingError", "message": "Claim cannot be accepted"}});
+            return res.json({err: {name: "ClaimNotProcessingError", message: "Claim cannot be accepted"}});
         } else if (!claim.employee.equals(req.user._id)) {
             res.statusCode = 401;
             res.setHeader('Content-Type', 'application/json');
-            return res.json({err: {name: "UnauthorizedError", "message": "Claim has been assigned to another employee"}});
+            return res.json({err: {name: "UnauthorizedError", message: "Claim has been assigned to another employee"}});
         }
         Insurances.findOne({_id: claim.insurance})
         .then(insurance => {

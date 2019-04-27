@@ -27,17 +27,26 @@ profileRouter.route('/')
     .catch((err) => next(err));
 })
 .post(cors.corsWithOptions, authenticate.verifyUser, (req, res, next) => {
-    let createObj = {...req.body, user: req.user._id};
-    Profiles.create(createObj)
-    .then((profile) => {
-        Users.findOne({_id: req.user._id})
-        .then((user) => {
-            user.profile = profile._id;
-            user.save();
-        });
-        res.statsuCode = 200;
-        res.setHeader('Content-Type', 'application/json');
-        res.json({ succuss: true, msg: 'Profile Creation Successful!' });
+    Users.findOne({_id: req.user._id})
+    .then((user) => {
+        if (user.profile === undefined) {
+            let createObj = {...req.body, user: req.user._id};
+            Profiles.create(createObj)
+            .then((profile) => {
+                user.profile = profile._id;
+                user.save();
+                res.statsuCode = 200;
+                res.setHeader('Content-Type', 'application/json');
+                return res.json({ success: true, msg: 'Profile Creation Successful!' });
+            });
+        } else {
+            res.statusCode = 500;
+            res.setHeader('Content-Type', 'application/json');
+            return res.json({err: {
+                name: 'ProfileExistError',
+                message: 'Profile has been created'
+            }});
+        }
     }, (err) => next(err))
     .catch((err) => next(err));
 })

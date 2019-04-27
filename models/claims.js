@@ -31,7 +31,7 @@ var claimSchema = new Schema({
         required: true
     },
     rejectReason: {
-        type: String,
+        type: String
     },
     files: [{
         type: String

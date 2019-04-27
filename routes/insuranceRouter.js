@@ -41,7 +41,7 @@ insuranceRouter.route('/')
     }, (err) => next(err))
     .catch((err) => next(err));
 })
-.delete(cors.corsWithOptions, authenticate.verifyUser, authenticate.verifyEmployee, (req, res, next) => {
+.delete(cors.corsWithOptions, authenticate.verifyUser, (req, res, next) => {
     let queryStr = {}
     if (req.user.employee)
         queryStr = req.query;
