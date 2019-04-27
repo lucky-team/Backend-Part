@@ -37,7 +37,7 @@ profileRouter.route('/')
                 user.save();
                 res.statsuCode = 200;
                 res.setHeader('Content-Type', 'application/json');
-                return res.json({ success: true, msg: 'Profile Creation Successful!' });
+                return res.json({ success: true, msg: 'Profile Creation Successful!', profile: profile });
             });
         } else {
             res.statusCode = 500;
@@ -58,7 +58,7 @@ profileRouter.route('/')
     .then((profile) => {
         res.statsuCode = 200;
         res.setHeader('Content-Type', 'application/json');
-        res.json(profile);
+        res.json({ success: true, msg: 'Profile Update Successful!', profile: profile});
     }, (err) => next(err))
     .catch((err) => next(err));
 })
