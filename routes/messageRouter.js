@@ -65,7 +65,7 @@ messageRouter.post('/sendSecurityCode', cors.corsWithOptions, (req, res) => {
                                                         code: securityCode,
                                                         sendAt: date.toISOString(),
                                                         live: sms.live,
-                                                        stale: true
+                                                        stale: false
                                                     }}, {new: true})
                                                     .then((message) => {
                                                         res.statusCode = 200;
@@ -134,7 +134,8 @@ messageRouter.post('/sendSecurityCode', cors.corsWithOptions, (req, res) => {
                                                 user: profile.user,
                                                 code: securityCode,
                                                 sendAt: date.toISOString(),
-                                                live: sms.live
+                                                live: sms.live,
+                                                stale: false
                                             })
                                             .then((message) => {
                                                 res.statusCode = 200;

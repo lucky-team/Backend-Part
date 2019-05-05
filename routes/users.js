@@ -1,11 +1,13 @@
-var express = require('express');
-var bodyParser = require('body-parser');
-var User = require('../models/user');
-var passport = require('passport');
-var authenticate = require('../authenticate');
-var cors = require('./cors');
+const express = require('express');
+const bodyParser = require('body-parser');
+const User = require('../models/user');
+const Messages = require('../models/messages');
+const passport = require('passport');
+const authenticate = require('../authenticate');
+const cors = require('./cors');
+const { sms } = require('../config');
 
-var userRouter = express.Router();
+const userRouter = express.Router();
 userRouter.use(bodyParser.json());
 
 userRouter.options('*', cors.corsWithOptions, (req, res) => { res.sendStatus(200); });
@@ -114,23 +116,41 @@ userRouter.get('/logout', cors.corsWithOptions, (req, res, next) => {
 });
 
 userRouter.post('/changePwd', cors.corsWithOptions, (req, res) => {
-    User.findOne({username: req.body.username})
+    User.findByUsername(req.body.username)
     .then((user) => {
         res.setHeader('Content-Type', 'application/json');
-        let success = true;
-        let err;
         if (user) {
-
+            Messages.findOne({user: user._id})
+            .then((message) => {
+                if (message) {
+                    const diff = (new Date().getTime() - new Date(message.sendAt).getTime()) / 1000;
+                    if (!message.stale &&
+                        diff <= message.live * 60 &&
+                        message.code === req.body.code) {
+                        user.setPassword(req.body.password, () => {
+                            message.stale = true;
+                            user.save();
+                            message.save();
+                            res.json({
+                                success: true,
+                                msg: 'Password Change Successful'
+                            })
+                        })
+                    } else {
+                        res.statusCode = 500;
+                        return res.json({err: {
+                            name: 'SecurityCodeError',
+                            message: 'Security code not correct'
+                        }});
+                    }
+                }
+            })
         } else {
-            success = false;
-            err = {
+            res.statusCode = 500;
+            return res.json({err: {
                 name: 'UserNotExist',
                 message: 'User not exist'
-            };
-        }
-        if (!success) {
-            res.statusCode = 500;
-            res.json({err: err});
+            }});
         }
     })
 })
