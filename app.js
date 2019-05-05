@@ -13,7 +13,8 @@ var usersRouter = require('./routes/users');
 var insuranceRouter = require('./routes/insuranceRouter');
 var claimRouter = require('./routes/claimRouter');
 var resRouter = require('./routes/resourcesRouter');
-var profileUser = require('./routes/profileRouter');
+var profileRouter = require('./routes/profileRouter');
+var messageRouter = require('./routes/messageRouter');
 
 var mongoose = require('mongoose');
 
@@ -44,13 +45,14 @@ app.use(helmet());
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
+app.use('/messages', messageRouter);
 
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/insurances', insuranceRouter);
 app.use('/claims', claimRouter);
 app.use('/res', resRouter);
-app.use('/profiles', profileUser);
+app.use('/profiles', profileRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

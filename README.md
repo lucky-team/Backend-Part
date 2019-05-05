@@ -590,8 +590,25 @@ Create a profile from the body of requests.
 ```json
 HTTP/1.1 200 OK
 {
-    "succuss": true,
-    "msg": "Profile Creation Successful!"
+    "success": true,
+    "msg": "Profile Creation Successful!",
+    "profile": {
+        "_id": "5cc482584048da58d858cd7c",
+        "firstname": "Steve",
+        "lastname": "Jobs",
+        "gender": "male",
+        "email": "cz.ycaptain@qq.com",
+        "phone": "+86 18812345678",
+        "socialId": "100100198801011234",
+        "city": "Dublin",
+        "province": "Dublin",
+        "country": "Ireland",
+        "age": 66,
+        "user": "5c9d8d23e3d1826c915c2d8b",
+        "createdAt": "2019-04-27T16:24:56.637Z",
+        "updatedAt": "2019-04-27T16:24:56.637Z",
+        "__v": 0
+    }
 }
 ```
 
@@ -672,8 +689,25 @@ Create a profile from the body of requests. Provided to customers.
 ```json
 HTTP/1.1 200 OK
 {
-    "succuss": true,
-    "msg": "Profile Creation Successful!"
+    "success": true,
+    "msg": "Profile Update Successful!",
+    "profile": {
+        "_id": "5cc482584048da58d858cd7c",
+        "firstname": "Steve",
+        "lastname": "Jobs",
+        "gender": "male",
+        "email": "cz.ycaptain@qq.com",
+        "phone": "+86 18812345678",
+        "socialId": "100100198801011234",
+        "city": "Dublin",
+        "province": "Dublin",
+        "country": "Ireland",
+        "age": 71,
+        "user": "5c9d8d23e3d1826c915c2d8b",
+        "createdAt": "2019-04-27T16:24:56.637Z",
+        "updatedAt": "2019-04-27T16:25:37.191Z",
+        "__v": 0
+    }
 }
 ```
 
