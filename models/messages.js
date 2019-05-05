@@ -7,11 +7,6 @@ const messageSchema = new Schema({
         required: true,
         unique: true
     },
-    lang: {
-        type: String,
-        enum: ['cn', 'en'],
-        required: true
-    },
     code: {
         type: String,
         required: true

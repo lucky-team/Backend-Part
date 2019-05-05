@@ -54,76 +54,65 @@ messageRouter.post('/sendSecurityCode', cors.corsWithOptions, (req, res) => {
                                 const messageDate = new Date(message.sendAt);
                                 const diff = (new Date().getTime() - messageDate.getTime()) / 1000;
                                 if (diff > sms.frequency * 60) {
-                                    if (diff < sms.live * 60) {
-                                        res.statusCode = 500;
-                                        res.setHeader('Content-Type', 'application/json');
-                                        return res.json({
-                                            err: {
-                                                name: 'CreateMessageError',
-                                                message: 'Over the specified frequency'
-                                            }
-                                        });
-                                    } else {
-                                        rp(options)
-                                            .then((body) => {
-                                                switch (body.code) {
-                                                    case '000000':
-                                                        let date = new Date(body.create_date);
-                                                        Messages.findOneAndUpdate({user: profile.user},
-                                                            {$set: {
-                                                                user: profile.user,
-                                                                lang: lang,
-                                                                code: securityCode,
-                                                                sendAt: date.toISOString(),
-                                                                live: sms.live
-                                                            }}, {new: true})
-                                                            .then((message) => {
-                                                                res.statusCode = 200;
-                                                                res.setHeader('Content-Type', 'application/json');
-                                                                return res.json({
-                                                                    success: true,
-                                                                    live: message.live,
-                                                                    code: message.code,
-                                                                    sendAt: message.sendAt,
-                                                                    frequency: sms.frequency
-                                                                });
-                                                            }, err => {
-                                                                res.statusCode = 500;
-                                                                res.setHeader('Content-Type', 'application/json');
-                                                                return res.json({
-                                                                    err: {
-                                                                        name: 'CreateMessageError',
-                                                                        message: err
-                                                                    }
-                                                                });
-                                                            });
-                                                        break;
-                                                    case '105147':
+                                    rp(options)
+                                    .then((body) => {
+                                        switch (body.code) {
+                                            case '000000':
+                                                let date = new Date(body.create_date);
+                                                Messages.findOneAndUpdate({user: profile.user},
+                                                    {$set: {
+                                                        user: profile.user,
+                                                        code: securityCode,
+                                                        sendAt: date.toISOString(),
+                                                        live: sms.live,
+                                                        stale: true
+                                                    }}, {new: true})
+                                                    .then((message) => {
+                                                        res.statusCode = 200;
+                                                        res.setHeader('Content-Type', 'application/json');
+                                                        return res.json({
+                                                            success: true,
+                                                            live: message.live,
+                                                            code: message.code,
+                                                            sendAt: message.sendAt,
+                                                            frequency: sms.frequency
+                                                        });
+                                                    }, err => {
                                                         res.statusCode = 500;
                                                         res.setHeader('Content-Type', 'application/json');
                                                         return res.json({
                                                             err: {
-                                                                name: 'SendMessageError',
-                                                                message: 'Over the specified frequency',
-                                                                code: body.code
+                                                                name: 'CreateMessageError',
+                                                                message: err
                                                             }
                                                         });
-                                                    default:
-                                                        res.statusCode = 500;
-                                                        res.setHeader('Content-Type', 'application/json');
-                                                        return res.json({
-                                                            err: {
-                                                                name: 'SendMessageError',
-                                                                message: body.msg,
-                                                                code: body.code
-                                                            }
-                                                        });
-                                                }
-                                            })
-                                            .catch((err) => {
-                                                return res.send(err);
-                                            });
-                                    }
+                                                    });
+                                                break;
+                                            case '105147':
+                                                res.statusCode = 500;
+                                                res.setHeader('Content-Type', 'application/json');
+                                                return res.json({
+                                                    err: {
+                                                        name: 'SendMessageError',
+                                                        message: 'Over the specified frequency',
+                                                        code: body.code
+                                                    }
+                                                });
+                                            default:
+                                                res.statusCode = 500;
+                                                res.setHeader('Content-Type', 'application/json');
+                                                return res.json({
+                                                    err: {
+                                                        name: 'ServerError',
+                                                        message: body.msg,
+                                                        code: body.code
+                                                    }
+                                                });
+                                        }
+                                    })
+                                    .catch((err) => {
+                                        return res.send(err);
+                                    });
                                 } else {
                                     res.statusCode = 500;
                                     res.setHeader('Content-Type', 'application/json');
@@ -131,7 +120,7 @@ messageRouter.post('/sendSecurityCode', cors.corsWithOptions, (req, res) => {
                                         err: {
                                             name: 'SendMessageError',
                                             message: 'Over the specified frequency',
-                                            code: body.code
+                                            excess: Math.ceil(sms.frequency * 60 - diff)
                                         }
                                     });
                                 }
@@ -143,7 +132,6 @@ messageRouter.post('/sendSecurityCode', cors.corsWithOptions, (req, res) => {
                                             let date = new Date(body.create_date);
                                             Messages.create({
                                                 user: profile.user,
-                                                lang: lang,
                                                 code: securityCode,
                                                 sendAt: date.toISOString(),
                                                 live: sms.live
@@ -195,7 +183,6 @@ messageRouter.post('/sendSecurityCode', cors.corsWithOptions, (req, res) => {
                                     return res.send(err);
                                 });
                             }
-
                         })
 
                 } else {
@@ -203,13 +190,10 @@ messageRouter.post('/sendSecurityCode', cors.corsWithOptions, (req, res) => {
                     res.setHeader('Content-Type', 'application/json');
                     return res.json({ err: { name: 'PhoneError', value: 'This phone number is not exist' } });
                 }
-
             })
-
     } else {
         res.json({ success: false });
     }
-
 });
 
 module.exports = messageRouter;

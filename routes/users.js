@@ -113,4 +113,26 @@ userRouter.get('/logout', cors.corsWithOptions, (req, res, next) => {
     }
 });
 
+userRouter.post('/changePwd', cors.corsWithOptions, (req, res) => {
+    User.findOne({username: req.body.username})
+    .then((user) => {
+        res.setHeader('Content-Type', 'application/json');
+        let success = true;
+        let err;
+        if (user) {
+
+        } else {
+            success = false;
+            err = {
+                name: 'UserNotExist',
+                message: 'User not exist'
+            };
+        }
+        if (!success) {
+            res.statusCode = 500;
+            res.json({err: err});
+        }
+    })
+})
+
 module.exports = userRouter;
