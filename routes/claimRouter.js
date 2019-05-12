@@ -45,9 +45,23 @@ claimRouter.route('/')
         queryStr = {...req.query, user: req.user._id};
     Claims.find(queryStr)
     .then((claims) => {
+        let targetClaims = [];
+        if (claims.length !== 0 && req.user.employee) {
+            claims.forEach((claim) => {
+                if (claim.status !== 'pending') {
+                    if (claim.employee === req.user._id) {
+                        targetClaims.push(claim);
+                    }
+                } else {
+                    targetClaims.push(claim);
+                }
+            })
+        } else {
+            targetClaims = claims;
+        }
         res.statsuCode = 200;
         res.setHeader('Content-Type', 'application/json');
-        res.json(claims);
+        res.json(targetClaims);
     }, (err) => next(err))
     .catch((err) => next(err));
 })
