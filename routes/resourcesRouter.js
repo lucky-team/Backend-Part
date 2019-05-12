@@ -12,7 +12,7 @@ resRouter.route('/claim-files/:claimId/:filename')
 .options(cors.corsWithOptions, (req, res) => {
     res.sendStatus(200);
 })
-.get(authenticate.verifyUser, (req, res, next) => {
+.get(cors.corsWithOptions, authenticate.verifyUser, (req, res, next) => {
     Claims.findOne({_id: req.params.claimId})
     .then((claim) => {
         if (claim.user.equals(req.user._id) || claim.employee.equals(req.user._id)) {
