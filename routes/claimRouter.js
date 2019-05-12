@@ -49,7 +49,7 @@ claimRouter.route('/')
         if (claims.length !== 0 && req.user.employee) {
             claims.forEach((claim) => {
                 if (claim.status !== 'pending') {
-                    if (claim.employee === req.user._id) {
+                    if (req.user._id.equals(claim.employee)) {
                         targetClaims.push(claim);
                     }
                 } else {
