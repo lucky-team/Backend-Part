@@ -37,7 +37,7 @@ insuranceRouter.route('/')
     .then((insurance) => {
         res.statsuCode = 200;
         res.setHeader('Content-Type', 'application/json');
-        res.json({ succuss: true, msg: 'Insurance Creation Successful!' });
+        res.json({ success: true, msg: 'Insurance Creation Successful!' });
     }, (err) => next(err))
     .catch((err) => next(err));
 })
