@@ -743,7 +743,7 @@ HTTP/1.1 500 Internal Server Error
 
 
 
-#### Delete Profiles
+#### 4. Delete Profiles
 
 **DELETE:**
 
@@ -796,7 +796,7 @@ HTTP/1.1 500 Internal Server Error
 }
 ```
 
-#### Get A Profile of A User
+#### 5. Get A Profile of A User
 
 **GET:**
 
@@ -880,7 +880,7 @@ HTTP/1.1 500 Internal Server Error
 }
 ```
 
-#### Update A Profile of A User
+#### 6. Update A Profile of A User
 
 **PUT:**
 

@@ -1,0 +1,2217 @@
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+%
+\documentclass[
+]{article}
+\usepackage{lmodern}
+\usepackage{amssymb,amsmath}
+\usepackage{ifxetex,ifluatex}
+\ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provide euro and other symbols
+\else % if luatex or xetex
+  \usepackage{unicode-math}
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+% Use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\makeatletter
+\@ifundefined{KOMAClassName}{% if non-KOMA class
+  \IfFileExists{parskip.sty}{%
+    \usepackage{parskip}
+  }{% else
+    \setlength{\parindent}{0pt}
+    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
+}{% if KOMA class
+  \KOMAoptions{parskip=half}}
+\makeatother
+\usepackage{xcolor}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\IfFileExists{bookmark.sty}{\usepackage{bookmark}}{\usepackage{hyperref}}
+\hypersetup{
+  hidelinks,
+  pdfcreator={LaTeX via pandoc}}
+\urlstyle{same} % disable monospaced font for URLs
+\usepackage{color}
+\usepackage{fancyvrb}
+\newcommand{\VerbBar}{|}
+\newcommand{\VERB}{\Verb[commandchars=\\\{\}]}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+% Add ',fontsize=\small' for more characters per line
+\newenvironment{Shaded}{}{}
+\newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{#1}}}
+\newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{#1}}}}
+\newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{#1}}
+\newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{#1}}
+\newcommand{\BuiltInTok}[1]{#1}
+\newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{#1}}
+\newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{#1}}}
+\newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{#1}}}}
+\newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{#1}}
+\newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{#1}}}
+\newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{#1}}
+\newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{#1}}
+\newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{#1}}}
+\newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{#1}}}
+\newcommand{\ExtensionTok}[1]{#1}
+\newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{#1}}
+\newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{#1}}
+\newcommand{\ImportTok}[1]{#1}
+\newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{#1}}}}
+\newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{#1}}}
+\newcommand{\NormalTok}[1]{#1}
+\newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{#1}}
+\newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{#1}}
+\newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{#1}}
+\newcommand{\RegionMarkerTok}[1]{#1}
+\newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{#1}}
+\newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{#1}}
+\newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{#1}}
+\newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{#1}}
+\newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{#1}}
+\newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{#1}}}}
+\usepackage{longtable,booktabs}
+% Correct order of tables after \paragraph or \subparagraph
+\usepackage{etoolbox}
+\makeatletter
+\patchcmd\longtable{\par}{\if@noskipsec\mbox{}\fi\par}{}{}
+\makeatother
+% Allow footnotes in longtable head/foot
+\IfFileExists{footnotehyper.sty}{\usepackage{footnotehyper}}{\usepackage{footnote}}
+\makesavenoteenv{longtable}
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{-\maxdimen} % remove section numbering
+
+\date{}
+
+\begin{document}
+
+\hypertarget{header-n0}{%
+\section{Hibernia-Sino API Documentation}\label{header-n0}}
+
+\textbf{CONTENTS}
+
+\tableofcontents
+
+\hypertarget{header-n5}{%
+\subsection{Introduction}\label{header-n5}}
+
+This document aims to provide a full-fledged documentation of
+Application Programming Interface (API) waiting for requests sent from
+front ends to the back end server.
+
+\hypertarget{header-n7}{%
+\subsection{Models}\label{header-n7}}
+
+\hypertarget{header-n8}{%
+\subsubsection{1. Claim}\label{header-n8}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\OperatorTok{\{}
+    \DataTypeTok{type}\OperatorTok{:} \OperatorTok{\{}
+        \DataTypeTok{type}\OperatorTok{:}\NormalTok{ Number}\OperatorTok{,}
+        \DataTypeTok{validate}\OperatorTok{:} \OperatorTok{\{}
+            \DataTypeTok{validator}\OperatorTok{:}\NormalTok{ (val) }\KeywordTok{=>} \OperatorTok{\{}
+                \ControlFlowTok{return} \SpecialStringTok{/}\SpecialCharTok{^[1-3]$}\SpecialStringTok{/}\NormalTok{.}\AttributeTok{test}\NormalTok{(val)}
+            \OperatorTok{\},}
+            \DataTypeTok{message}\OperatorTok{:} \StringTok{'level can only be 1, 2, or 3.'}
+        \OperatorTok{\},}
+        \DataTypeTok{required}\OperatorTok{:} \KeywordTok{true}
+    \OperatorTok{\},}
+    \DataTypeTok{location}\OperatorTok{:} \OperatorTok{\{}
+        \DataTypeTok{type}\OperatorTok{:}\NormalTok{ String}\OperatorTok{,}
+        \DataTypeTok{required}\OperatorTok{:} \KeywordTok{true}
+    \OperatorTok{\},}
+    \DataTypeTok{date}\OperatorTok{:} \OperatorTok{\{}
+        \DataTypeTok{type}\OperatorTok{:}\NormalTok{ Date}\OperatorTok{,}
+        \DataTypeTok{required}\OperatorTok{:} \KeywordTok{true}
+    \OperatorTok{\},}
+    \DataTypeTok{amount}\OperatorTok{:} \OperatorTok{\{}
+        \DataTypeTok{type}\OperatorTok{:}\NormalTok{ Currency}\OperatorTok{,}
+        \DataTypeTok{required}\OperatorTok{:} \KeywordTok{true}
+    \OperatorTok{\},}
+    \DataTypeTok{reason}\OperatorTok{:} \OperatorTok{\{}
+        \DataTypeTok{type}\OperatorTok{:}\NormalTok{ String}\OperatorTok{,}
+        \DataTypeTok{required}\OperatorTok{:} \KeywordTok{true}
+    \OperatorTok{\},}
+    \DataTypeTok{rejectReason}\OperatorTok{:} \OperatorTok{\{}
+        \DataTypeTok{type}\OperatorTok{:}\NormalTok{ String}\OperatorTok{,}
+    \OperatorTok{\},}
+    \DataTypeTok{files}\OperatorTok{:}\NormalTok{ [}\OperatorTok{\{}
+        \DataTypeTok{type}\OperatorTok{:}\NormalTok{ String}
+    \OperatorTok{\}}\NormalTok{]}\OperatorTok{,}
+    \DataTypeTok{status}\OperatorTok{:} \OperatorTok{\{}
+        \DataTypeTok{type}\OperatorTok{:}\NormalTok{ String}\OperatorTok{,}
+        \DataTypeTok{enum}\OperatorTok{:}\NormalTok{ [}\StringTok{'accepted'}\OperatorTok{,} \StringTok{'rejected'}\OperatorTok{,} \StringTok{'processing'}\OperatorTok{,} \StringTok{'pending'}\NormalTok{]}\OperatorTok{,}
+        \ControlFlowTok{default}\OperatorTok{:} \StringTok{'pending'}\OperatorTok{,}
+        \DataTypeTok{required}\OperatorTok{:} \KeywordTok{true}
+    \OperatorTok{\},}
+    \DataTypeTok{insurance}\OperatorTok{:} \OperatorTok{\{}
+        \DataTypeTok{type}\OperatorTok{:} \StringTok{'ObjectId'}\OperatorTok{,}
+        \DataTypeTok{ref}\OperatorTok{:} \StringTok{'Insurance'}\OperatorTok{,}
+        \DataTypeTok{required}\OperatorTok{:} \KeywordTok{true}
+    \OperatorTok{\},}
+    \DataTypeTok{user}\OperatorTok{:} \OperatorTok{\{}
+        \DataTypeTok{type}\OperatorTok{:} \StringTok{'ObjectId'}\OperatorTok{,}
+        \DataTypeTok{ref}\OperatorTok{:} \StringTok{'User'}\OperatorTok{,}
+        \DataTypeTok{require}\OperatorTok{:} \KeywordTok{true}
+    \OperatorTok{\},}
+    \DataTypeTok{employee}\OperatorTok{:} \OperatorTok{\{}
+        \DataTypeTok{type}\OperatorTok{:} \StringTok{'ObjectId'}\OperatorTok{,}
+        \DataTypeTok{ref}\OperatorTok{:} \StringTok{'User'}
+    \OperatorTok{\}}
+\OperatorTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{header-n10}{%
+\subsubsection{2. User}\label{header-n10}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\OperatorTok{\{}
+    \DataTypeTok{employee}\OperatorTok{:} \OperatorTok{\{}
+        \DataTypeTok{type}\OperatorTok{:}\NormalTok{ Boolean}\OperatorTok{,}
+        \ControlFlowTok{default}\OperatorTok{:} \KeywordTok{false}
+    \OperatorTok{\},}
+    \DataTypeTok{username}\OperatorTok{:} \OperatorTok{\{}
+		\DataTypeTok{tpye}\OperatorTok{:}\NormalTok{ String}\OperatorTok{,}
+        \DataTypeTok{required}\OperatorTok{:} \KeywordTok{true}
+    \OperatorTok{\},}
+    \DataTypeTok{password}\OperatorTok{:} \OperatorTok{\{}
+        \DataTypeTok{tpye}\OperatorTok{:}\NormalTok{ String}\OperatorTok{,}
+        \DataTypeTok{required}\OperatorTok{:} \KeywordTok{true}
+    \OperatorTok{\},}
+    \DataTypeTok{profile}\OperatorTok{:} \OperatorTok{\{}
+        \DataTypeTok{type}\OperatorTok{:} \StringTok{'ObjectId'}\OperatorTok{,}
+        \DataTypeTok{ref}\OperatorTok{:} \StringTok{'Profile'}
+    \OperatorTok{\}}
+\OperatorTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{header-n12}{%
+\subsubsection{3. Insured}\label{header-n12}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\OperatorTok{\{}
+    \DataTypeTok{lastname}\OperatorTok{:} \OperatorTok{\{}
+        \DataTypeTok{type}\OperatorTok{:}\NormalTok{ String}\OperatorTok{,}
+        \DataTypeTok{required}\OperatorTok{:} \KeywordTok{true}
+    \OperatorTok{\},}
+    \DataTypeTok{firstname}\OperatorTok{:} \OperatorTok{\{}
+        \DataTypeTok{type}\OperatorTok{:}\NormalTok{ String}\OperatorTok{,}
+        \DataTypeTok{required}\OperatorTok{:} \KeywordTok{true}
+    \OperatorTok{\},}
+    \DataTypeTok{socialId}\OperatorTok{:} \OperatorTok{\{}
+        \DataTypeTok{type}\OperatorTok{:}\NormalTok{ String}\OperatorTok{,}
+        \DataTypeTok{required}\OperatorTok{:} \KeywordTok{true}
+    \OperatorTok{\},}
+    \DataTypeTok{gender}\OperatorTok{:} \OperatorTok{\{}
+        \DataTypeTok{type}\OperatorTok{:}\NormalTok{ String}\OperatorTok{,}
+        \DataTypeTok{enum}\OperatorTok{:}\NormalTok{ [}\StringTok{'male'}\OperatorTok{,} \StringTok{'female'}\NormalTok{]}\OperatorTok{,}
+        \DataTypeTok{required}\OperatorTok{:} \KeywordTok{true}
+    \OperatorTok{\},}
+    \DataTypeTok{age}\OperatorTok{:} \OperatorTok{\{}
+        \DataTypeTok{type}\OperatorTok{:}\NormalTok{ Number}\OperatorTok{,}
+        \DataTypeTok{required}\OperatorTok{:} \KeywordTok{true}
+    \OperatorTok{\},}
+    \DataTypeTok{phone}\OperatorTok{:} \OperatorTok{\{}
+        \DataTypeTok{type}\OperatorTok{:}\NormalTok{ String}\OperatorTok{,}
+        \DataTypeTok{required}\OperatorTok{:} \KeywordTok{true}
+    \OperatorTok{\},}
+    \DataTypeTok{email}\OperatorTok{:} \OperatorTok{\{}
+        \DataTypeTok{type}\OperatorTok{:}\NormalTok{ String}\OperatorTok{,}
+        \DataTypeTok{required}\OperatorTok{:} \KeywordTok{true}
+    \OperatorTok{\},}
+    \DataTypeTok{bankName}\OperatorTok{:} \OperatorTok{\{}
+        \DataTypeTok{type}\OperatorTok{:}\NormalTok{ String}\OperatorTok{,}
+        \DataTypeTok{required}\OperatorTok{:} \KeywordTok{true}
+    \OperatorTok{\},}
+    \DataTypeTok{bankAccount}\OperatorTok{:} \OperatorTok{\{}
+        \DataTypeTok{type}\OperatorTok{:}\NormalTok{ String}\OperatorTok{,}
+        \DataTypeTok{required}\OperatorTok{:} \KeywordTok{true}
+    \OperatorTok{\},}
+    \DataTypeTok{bankUsername}\OperatorTok{:} \OperatorTok{\{}
+        \DataTypeTok{type}\OperatorTok{:}\NormalTok{ String}\OperatorTok{,}
+        \DataTypeTok{required}\OperatorTok{:} \KeywordTok{true}
+    \OperatorTok{\}}
+\OperatorTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{header-n14}{%
+\subsubsection{4. Insurance}\label{header-n14}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\OperatorTok{\{}
+    \DataTypeTok{plan}\OperatorTok{:} \OperatorTok{\{}
+        \DataTypeTok{type}\OperatorTok{:}\NormalTok{ Number}\OperatorTok{,}
+        \DataTypeTok{validate}\OperatorTok{:} \OperatorTok{\{}
+            \DataTypeTok{validator}\OperatorTok{:}\NormalTok{ (val) }\KeywordTok{=>} \OperatorTok{\{}
+                \ControlFlowTok{return} \SpecialStringTok{/}\SpecialCharTok{^[1-3]$}\SpecialStringTok{/}\NormalTok{.}\AttributeTok{test}\NormalTok{(val)}
+            \OperatorTok{\},}
+            \DataTypeTok{message}\OperatorTok{:} \StringTok{'plan can only be 1, 2, or 3.'}
+        \OperatorTok{\},}
+        \DataTypeTok{required}\OperatorTok{:} \KeywordTok{true}
+    \OperatorTok{\},}
+    \DataTypeTok{level}\OperatorTok{:} \OperatorTok{\{}
+        \DataTypeTok{type}\OperatorTok{:}\NormalTok{ Number}\OperatorTok{,}
+        \DataTypeTok{validate}\OperatorTok{:} \OperatorTok{\{}
+            \DataTypeTok{validator}\OperatorTok{:}\NormalTok{ (val) }\KeywordTok{=>} \OperatorTok{\{}
+                \ControlFlowTok{return} \SpecialStringTok{/}\SpecialCharTok{^[1-3]$}\SpecialStringTok{/}\NormalTok{.}\AttributeTok{test}\NormalTok{(val)}
+            \OperatorTok{\},}
+            \DataTypeTok{message}\OperatorTok{:} \StringTok{'level can only be 1, 2, or 3.'}
+        \OperatorTok{\},}
+        \DataTypeTok{required}\OperatorTok{:} \KeywordTok{true}
+    \OperatorTok{\},}
+    \DataTypeTok{startDate}\OperatorTok{:} \OperatorTok{\{}
+        \DataTypeTok{type}\OperatorTok{:}\NormalTok{ Date}\OperatorTok{,}
+        \DataTypeTok{required}\OperatorTok{:} \KeywordTok{true}
+    \OperatorTok{\},}
+    \DataTypeTok{duration}\OperatorTok{:} \OperatorTok{\{}
+        \DataTypeTok{type}\OperatorTok{:}\NormalTok{ Number}\OperatorTok{,}
+        \DataTypeTok{validate}\OperatorTok{:} \OperatorTok{\{}
+            \DataTypeTok{validator}\OperatorTok{:}\NormalTok{ (val) }\KeywordTok{=>} \OperatorTok{\{}
+                \ControlFlowTok{if}\NormalTok{ (val }\OperatorTok{%} \DecValTok{30} \OperatorTok{==} \DecValTok{0} \OperatorTok{&&}\NormalTok{ val }\OperatorTok{!=} \DecValTok{0}\NormalTok{) }\OperatorTok{\{}
+                    \ControlFlowTok{return} \KeywordTok{true}\OperatorTok{;}
+                \OperatorTok{\}} \ControlFlowTok{else} \OperatorTok{\{}
+                    \ControlFlowTok{return} \KeywordTok{false}\OperatorTok{;}
+                \OperatorTok{\}}
+            \OperatorTok{\},}
+            \DataTypeTok{message}\OperatorTok{:} \StringTok{'duration can only be multiples of 30.'}
+        \OperatorTok{\},}
+        \DataTypeTok{required}\OperatorTok{:} \KeywordTok{true}
+    \OperatorTok{\},}
+    \DataTypeTok{expireDate}\OperatorTok{:} \OperatorTok{\{}
+        \DataTypeTok{type}\OperatorTok{:}\NormalTok{ Date}\OperatorTok{,}
+        \DataTypeTok{required}\OperatorTok{:} \KeywordTok{true}
+    \OperatorTok{\},}
+    \DataTypeTok{user}\OperatorTok{:} \OperatorTok{\{}
+        \DataTypeTok{type}\OperatorTok{:} \StringTok{'ObjectId'}\OperatorTok{,}
+        \DataTypeTok{ref}\OperatorTok{:} \StringTok{'User'}
+    \OperatorTok{\},}
+    \DataTypeTok{insured}\OperatorTok{:}\NormalTok{ insured}
+\OperatorTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{header-n16}{%
+\subsubsection{5. Profile}\label{header-n16}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{\{}
+    \ErrorTok{firstname}\FunctionTok{:} \FunctionTok{\{}
+        \ErrorTok{type}\FunctionTok{:} \ErrorTok{String}\FunctionTok{,}
+        \ErrorTok{required}\FunctionTok{:} \KeywordTok{true}
+    \FunctionTok{\},}
+    \ErrorTok{lastname}\FunctionTok{:} \FunctionTok{\{}
+        \ErrorTok{type}\FunctionTok{:} \ErrorTok{String}\FunctionTok{,}
+        \ErrorTok{required}\FunctionTok{:} \KeywordTok{true}
+    \FunctionTok{\},}
+    \ErrorTok{gender}\FunctionTok{:} \FunctionTok{\{}
+        \ErrorTok{type}\FunctionTok{:} \ErrorTok{String}\FunctionTok{,}
+        \ErrorTok{enum}\FunctionTok{:} \OtherTok{[}\ErrorTok{'male'}\OtherTok{,} \ErrorTok{'female'}\OtherTok{]}\FunctionTok{,}
+        \ErrorTok{required}\FunctionTok{:} \KeywordTok{true}
+    \FunctionTok{\},}
+    \ErrorTok{email}\FunctionTok{:} \FunctionTok{\{}
+        \ErrorTok{type}\FunctionTok{:} \ErrorTok{String}\FunctionTok{,}
+        \ErrorTok{required}\FunctionTok{:} \KeywordTok{true}
+    \FunctionTok{\},}
+    \ErrorTok{phone}\FunctionTok{:} \FunctionTok{\{}
+        \ErrorTok{type}\FunctionTok{:} \ErrorTok{String}\FunctionTok{,}
+        \ErrorTok{required}\FunctionTok{:} \KeywordTok{true}
+    \FunctionTok{\},}
+    \ErrorTok{socialId}\FunctionTok{:} \FunctionTok{\{}
+        \ErrorTok{type}\FunctionTok{:} \ErrorTok{String}\FunctionTok{,}
+        \ErrorTok{required}\FunctionTok{:} \KeywordTok{true}
+    \FunctionTok{\},}
+    \ErrorTok{city}\FunctionTok{:} \FunctionTok{\{}
+        \ErrorTok{type}\FunctionTok{:} \ErrorTok{String}\FunctionTok{,}
+        \ErrorTok{required}\FunctionTok{:} \KeywordTok{true}
+    \FunctionTok{\},}
+    \ErrorTok{province}\FunctionTok{:} \FunctionTok{\{}
+        \ErrorTok{type}\FunctionTok{:} \ErrorTok{String}\FunctionTok{,}
+        \ErrorTok{required}\FunctionTok{:} \KeywordTok{true}
+    \FunctionTok{\},}
+    \ErrorTok{country}\FunctionTok{:} \FunctionTok{\{}
+        \ErrorTok{type}\FunctionTok{:} \ErrorTok{String}\FunctionTok{,}
+        \ErrorTok{required}\FunctionTok{:} \KeywordTok{true}
+    \FunctionTok{\},}
+    \ErrorTok{age}\FunctionTok{:} \FunctionTok{\{}
+        \ErrorTok{type}\FunctionTok{:} \ErrorTok{Number}\FunctionTok{,}
+        \ErrorTok{required}\FunctionTok{:} \KeywordTok{true}
+    \FunctionTok{\},}
+    \ErrorTok{user}\FunctionTok{:} \FunctionTok{\{}
+        \ErrorTok{type}\FunctionTok{:} \ErrorTok{'ObjectId'}\FunctionTok{,}
+        \ErrorTok{ref}\FunctionTok{:} \ErrorTok{'User'}
+    \FunctionTok{\}}
+\FunctionTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{header-n19}{%
+\subsection{Application Programming Interface}\label{header-n19}}
+
+\hypertarget{header-n20}{%
+\subsubsection{1. User module}\label{header-n20}}
+
+\hypertarget{header-n21}{%
+\paragraph{1. Signup}\label{header-n21}}
+
+\textbf{POST:}
+
+\begin{verbatim}
+/users/signup
+\end{verbatim}
+
+\textbf{DESCRIPTION}
+
+Sign up an user with username and password.
+
+\textbf{BODY}
+
+\begin{longtable}[]{@{}ccc@{}}
+\toprule
+FIELD & Type & description\tabularnewline
+\midrule
+\endhead
+username & String & user's username\tabularnewline
+password & String & user's password\tabularnewline
+\bottomrule
+\end{longtable}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{\{}
+    \DataTypeTok{"username"}\FunctionTok{:} \StringTok{"user"}\FunctionTok{,}
+    \DataTypeTok{"password"}\FunctionTok{:} \StringTok{"pwd"}
+\FunctionTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+\textbf{PARAMETER}
+
+\begin{longtable}[]{@{}ccc@{}}
+\toprule
+FIELD & Type & description\tabularnewline
+\midrule
+\endhead
+success & Boolean & Success or failure\tabularnewline
+msg & String & Detailed message\tabularnewline
+\bottomrule
+\end{longtable}
+
+\textbf{SUCCESS}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\ErrorTok{HTTP/1.1} \ErrorTok{200} \ErrorTok{OK}
+\FunctionTok{\{}
+    \DataTypeTok{"succuss"}\FunctionTok{:} \KeywordTok{true}\FunctionTok{,}
+    \DataTypeTok{"msg"}\FunctionTok{:} \StringTok{"Registration Successful!"}
+\FunctionTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+\textbf{FAILURE}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\ErrorTok{HTTP/1.1} \ErrorTok{500} \ErrorTok{Internal} \ErrorTok{Server} \ErrorTok{Error}
+\FunctionTok{\{}
+    \DataTypeTok{"err"}\FunctionTok{:} \FunctionTok{\{}
+        \DataTypeTok{"name"}\FunctionTok{:} \StringTok{"UserExistsError"}\FunctionTok{,}
+        \DataTypeTok{"message"}\FunctionTok{:} \StringTok{"A user with the given username is already registered"}
+    \FunctionTok{\}}
+\FunctionTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{header-n59}{%
+\paragraph{2. Register Employee}\label{header-n59}}
+
+\textbf{POST:}
+
+\begin{verbatim}
+/users/registerEmployee
+\end{verbatim}
+
+\textbf{DESCRIPTION}
+
+Sign up an employee with username and password.
+
+\textbf{BODY}
+
+\begin{longtable}[]{@{}ccc@{}}
+\toprule
+FIELD & Type & description\tabularnewline
+\midrule
+\endhead
+username & String & user's username\tabularnewline
+password & String & user's password\tabularnewline
+\bottomrule
+\end{longtable}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{\{}
+    \DataTypeTok{"username"}\FunctionTok{:} \StringTok{"user"}\FunctionTok{,}
+    \DataTypeTok{"password"}\FunctionTok{:} \StringTok{"pwd"}
+\FunctionTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+\textbf{PARAMETER}
+
+\begin{longtable}[]{@{}ccc@{}}
+\toprule
+FIELD & Type & description\tabularnewline
+\midrule
+\endhead
+success & Boolean & Success or failure\tabularnewline
+msg & String & Detailed message\tabularnewline
+\bottomrule
+\end{longtable}
+
+\textbf{SUCCESS}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\ErrorTok{HTTP/1.1} \ErrorTok{200} \ErrorTok{OK}
+\FunctionTok{\{}
+    \DataTypeTok{"success"}\FunctionTok{:} \KeywordTok{true}\FunctionTok{,}
+    \DataTypeTok{"msg"}\FunctionTok{:} \StringTok{"Registration Successful!"}
+\FunctionTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+\textbf{FAILURE}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\ErrorTok{HTTP/1.1} \ErrorTok{500} \ErrorTok{Internal} \ErrorTok{Server} \ErrorTok{Error}
+\FunctionTok{\{}
+    \DataTypeTok{"err"}\FunctionTok{:} \FunctionTok{\{}
+        \DataTypeTok{"name"}\FunctionTok{:} \StringTok{"UserExistsError"}\FunctionTok{,}
+        \DataTypeTok{"message"}\FunctionTok{:} \StringTok{"A user with the given username is already registered"}
+    \FunctionTok{\}}
+\FunctionTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{header-n97}{%
+\paragraph{3. Login}\label{header-n97}}
+
+\textbf{POST:}
+
+\begin{verbatim}
+/users/login
+\end{verbatim}
+
+\textbf{DESCRIPTION}
+
+Sign in an user with username and password. Server will send back a
+token for other operations that need authorization.
+
+\textbf{BODY}
+
+\begin{longtable}[]{@{}ccc@{}}
+\toprule
+FIELD & Type & description\tabularnewline
+\midrule
+\endhead
+username & String & user's username\tabularnewline
+password & String & user's password\tabularnewline
+\bottomrule
+\end{longtable}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{\{}
+    \DataTypeTok{"username"}\FunctionTok{:} \StringTok{"user"}\FunctionTok{,}
+    \DataTypeTok{"password"}\FunctionTok{:} \StringTok{"pwd"}
+\FunctionTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+\textbf{PARAMETER}
+
+\begin{longtable}[]{@{}ccc@{}}
+\toprule
+FIELD & Type & description\tabularnewline
+\midrule
+\endhead
+success & Boolean & Success or failure\tabularnewline
+msg & String & Detailed message\tabularnewline
+token & String & json web token\tabularnewline
+\bottomrule
+\end{longtable}
+
+\textbf{SUCCESS}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\ErrorTok{HTTP/1.1} \ErrorTok{200} \ErrorTok{OK}
+\FunctionTok{\{} 
+    \DataTypeTok{"success"}\FunctionTok{:} \KeywordTok{true}\FunctionTok{,}
+    \DataTypeTok{"msg"}\FunctionTok{:} \StringTok{"Login Successfully!"}\FunctionTok{,}
+    \DataTypeTok{"token"}\FunctionTok{:} \StringTok{"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1YzlkOGQyM2UzZDE4MjZjOTE1YzJkOGIiLCJpYXQiOjE1NTM4MzA2MDcsImV4cCI6MTU1MzkxNzAwN30.M_BkuiEyEW8FpP4a7ghXHssIVdPTPvZYGEW2qLX745E"}
+\FunctionTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+\textbf{FAILURE}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\ErrorTok{HTTP/1.1} \ErrorTok{401} \ErrorTok{Unauthorized}
+\FunctionTok{\{}
+    \DataTypeTok{"err"}\FunctionTok{:} \FunctionTok{\{}
+        \DataTypeTok{"name"}\FunctionTok{:} \StringTok{"IncorrectUsernameError"}\FunctionTok{,}
+        \DataTypeTok{"message"}\FunctionTok{:} \StringTok{"Password or username is incorrect"}
+    \FunctionTok{\}}
+\FunctionTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\ErrorTok{HTTP/1.1} \ErrorTok{401} \ErrorTok{Unauthorized}
+\FunctionTok{\{}
+    \DataTypeTok{"err"}\FunctionTok{:} \FunctionTok{\{}
+        \DataTypeTok{"name"}\FunctionTok{:} \StringTok{"IncorrectPasswordError"}\FunctionTok{,}
+        \DataTypeTok{"message"}\FunctionTok{:} \StringTok{"Password or username is incorrect"}
+    \FunctionTok{\}}
+\FunctionTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\ErrorTok{HTTP/1.1} \ErrorTok{401} \ErrorTok{Unauthorized}
+\ErrorTok{//} \ErrorTok{Lack} \ErrorTok{of} \ErrorTok{username} \ErrorTok{or} \ErrorTok{password}
+\FunctionTok{\{}
+    \DataTypeTok{"err"}\FunctionTok{:} \FunctionTok{\{}
+        \DataTypeTok{"message"}\FunctionTok{:} \StringTok{"Missing credentials"}
+    \FunctionTok{\}}
+\FunctionTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\ErrorTok{HTTP/1.1} \ErrorTok{500} \ErrorTok{Internal} \ErrorTok{Server} \ErrorTok{Error}
+\FunctionTok{\{}
+    \DataTypeTok{"success"}\FunctionTok{:} \KeywordTok{false}\FunctionTok{,}
+    \DataTypeTok{"err"}\FunctionTok{:} \StringTok{"Internal Server Error"}
+\FunctionTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{header-n142}{%
+\subsubsection{2. Profile module}\label{header-n142}}
+
+\hypertarget{header-n144}{%
+\paragraph{1. Get Users' Profiles}\label{header-n144}}
+
+\textbf{GET:}
+
+\begin{verbatim}
+ /profiles[?<query string>]
+\end{verbatim}
+
+\textbf{DESCRIPTION}
+
+Employees are able to get a list of profiles of all users matched with
+the query string from database.
+
+Customers are able to get his/her own profile.
+
+\textbf{SUCCESS}
+
+\begin{longtable}[]{@{}ccc@{}}
+\toprule
+Field & Type & Description\tabularnewline
+\midrule
+\endhead
+\_id & String & object id of the profile\tabularnewline
+user & String & object id of an user\tabularnewline
+lastname & String & user's lastname\tabularnewline
+firstname & String & user's firstname\tabularnewline
+socialId & String & identification card number\tabularnewline
+gender & String & gender\tabularnewline
+age & Number & age\tabularnewline
+country & String & country name\tabularnewline
+province & String & province name\tabularnewline
+city & String & city name\tabularnewline
+phone & String & format: {[}+area code{]} {[}phone
+number{]}\tabularnewline
+email & String & email address\tabularnewline
+createdAt & Date & ISO Date\tabularnewline
+updatedAt & Date & ISO Date\tabularnewline
+\bottomrule
+\end{longtable}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\ErrorTok{HTTP/1.1} \ErrorTok{200} \ErrorTok{OK}
+\OtherTok{[}
+    \FunctionTok{\{}
+        \DataTypeTok{"_id"}\FunctionTok{:} \StringTok{"5cab583bd992fb657aa2f1f3"}\FunctionTok{,}
+        \DataTypeTok{"firstname"}\FunctionTok{:} \StringTok{"Smith"}\FunctionTok{,}
+        \DataTypeTok{"lastname"}\FunctionTok{:} \StringTok{"Jobs"}\FunctionTok{,}
+        \DataTypeTok{"gender"}\FunctionTok{:} \StringTok{"male"}\FunctionTok{,}
+        \DataTypeTok{"email"}\FunctionTok{:} \StringTok{"12rft31t31@f3.com"}\FunctionTok{,}
+        \DataTypeTok{"phone"}\FunctionTok{:} \StringTok{"+86 1325151153"}\FunctionTok{,}
+        \DataTypeTok{"socialId"}\FunctionTok{:} \StringTok{"3215235251312"}\FunctionTok{,}
+        \DataTypeTok{"city"}\FunctionTok{:} \StringTok{"Dublin"}\FunctionTok{,}
+        \DataTypeTok{"province"}\FunctionTok{:} \StringTok{"Dublin"}\FunctionTok{,}
+        \DataTypeTok{"country"}\FunctionTok{:} \StringTok{"Ireland"}\FunctionTok{,}
+        \DataTypeTok{"age"}\FunctionTok{:} \DecValTok{66}\FunctionTok{,}
+        \DataTypeTok{"user"}\FunctionTok{:} \StringTok{"5c9d8d23e3d1826c915c2d8b"}\FunctionTok{,}
+        \DataTypeTok{"createdAt"}\FunctionTok{:} \StringTok{"2019-04-08T14:18:35.564Z"}\FunctionTok{,}
+        \DataTypeTok{"updatedAt"}\FunctionTok{:} \StringTok{"2019-04-08T14:18:35.564Z"}\FunctionTok{,}
+        \DataTypeTok{"__v"}\FunctionTok{:} \DecValTok{0}
+    \FunctionTok{\}}
+\OtherTok{]}
+\end{Highlighting}
+\end{Shaded}
+
+\textbf{FAILURE}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\ErrorTok{HTTP/1.1} \ErrorTok{401} \ErrorTok{Unauthorized}
+\FunctionTok{\{}
+    \DataTypeTok{"err"}\FunctionTok{:} \FunctionTok{\{}
+        \DataTypeTok{"name"}\FunctionTok{:} \StringTok{"UnauthenticatedUserError"}\FunctionTok{,}
+        \DataTypeTok{"message"}\FunctionTok{:} \StringTok{"Not an authorized user"}
+    \FunctionTok{\}}
+\FunctionTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\ErrorTok{HTTP/1.1} \FunctionTok{\{}
+\ErrorTok{\{}
+    \DataTypeTok{"err"}\FunctionTok{:} \FunctionTok{\{}
+        \DataTypeTok{"name"}\FunctionTok{:} \StringTok{"UnauthorizedUserError"}\FunctionTok{,}
+        \DataTypeTok{"message"}\FunctionTok{:} \StringTok{"You are not authorized as an employee to perform this operation"}
+    \FunctionTok{\}}
+\FunctionTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\ErrorTok{HTTP/1.1} \ErrorTok{500} \ErrorTok{Internal} \ErrorTok{Server} \ErrorTok{Error}
+\FunctionTok{\{}
+    \DataTypeTok{"success"}\FunctionTok{:} \KeywordTok{false}\FunctionTok{,}
+    \DataTypeTok{"err"}\FunctionTok{:} \StringTok{"Internal Server Error"}
+\FunctionTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{header-n217}{%
+\paragraph{2. Create A Profile}\label{header-n217}}
+
+\textbf{POST:}
+
+\begin{verbatim}
+/profiles
+\end{verbatim}
+
+\textbf{DESCRIPTION}
+
+Create a profile from the body of requests.
+
+\textbf{BODY}
+
+\begin{longtable}[]{@{}ccc@{}}
+\toprule
+Field & Type & Description\tabularnewline
+\midrule
+\endhead
+lastname & String & user's lastname\tabularnewline
+firstname & String & user's firstname\tabularnewline
+socialId & String & identification card number\tabularnewline
+gender & String & gender\tabularnewline
+age & Number & age\tabularnewline
+country & String & country name\tabularnewline
+province & String & province name\tabularnewline
+city & String & city name\tabularnewline
+phone & String & format: +{[}area code{]} {[}phone
+number{]}\tabularnewline
+email & String & email address\tabularnewline
+\bottomrule
+\end{longtable}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{\{}
+	\DataTypeTok{"firstname"}\FunctionTok{:} \StringTok{"Smith"}\FunctionTok{,}
+	\DataTypeTok{"lastname"}\FunctionTok{:} \StringTok{"Jobs"}\FunctionTok{,}
+	\DataTypeTok{"gender"}\FunctionTok{:} \StringTok{"male"}\FunctionTok{,}
+	\DataTypeTok{"email"}\FunctionTok{:} \StringTok{"12rft31t31@f3.com"}\FunctionTok{,}
+	\DataTypeTok{"phone"}\FunctionTok{:} \StringTok{"+86 1325151153"}\FunctionTok{,}
+	\DataTypeTok{"socialId"}\FunctionTok{:} \StringTok{"3215235251312"}\FunctionTok{,}
+	\DataTypeTok{"city"}\FunctionTok{:} \StringTok{"Dublin"}\FunctionTok{,}
+	\DataTypeTok{"province"}\FunctionTok{:} \StringTok{"Dublin"}\FunctionTok{,}
+	\DataTypeTok{"country"}\FunctionTok{:} \StringTok{"Ireland"}\FunctionTok{,}
+	\DataTypeTok{"age"}\FunctionTok{:} \DecValTok{66}
+\FunctionTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+\textbf{PARAMETER}
+
+\begin{longtable}[]{@{}ccc@{}}
+\toprule
+Field & Type & Description\tabularnewline
+\midrule
+\endhead
+success & Boolean & Success or failure\tabularnewline
+msg & String & Detailed message\tabularnewline
+\bottomrule
+\end{longtable}
+
+\textbf{SUCCESS}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\ErrorTok{HTTP/1.1} \ErrorTok{200} \ErrorTok{OK}
+\FunctionTok{\{}
+    \DataTypeTok{"success"}\FunctionTok{:} \KeywordTok{true}\FunctionTok{,}
+    \DataTypeTok{"msg"}\FunctionTok{:} \StringTok{"Profile Creation Successful!"}\FunctionTok{,}
+    \DataTypeTok{"profile"}\FunctionTok{:} \FunctionTok{\{}
+        \DataTypeTok{"_id"}\FunctionTok{:} \StringTok{"5cc482584048da58d858cd7c"}\FunctionTok{,}
+        \DataTypeTok{"firstname"}\FunctionTok{:} \StringTok{"Steve"}\FunctionTok{,}
+        \DataTypeTok{"lastname"}\FunctionTok{:} \StringTok{"Jobs"}\FunctionTok{,}
+        \DataTypeTok{"gender"}\FunctionTok{:} \StringTok{"male"}\FunctionTok{,}
+        \DataTypeTok{"email"}\FunctionTok{:} \StringTok{"cz.ycaptain@qq.com"}\FunctionTok{,}
+        \DataTypeTok{"phone"}\FunctionTok{:} \StringTok{"+86 18812345678"}\FunctionTok{,}
+        \DataTypeTok{"socialId"}\FunctionTok{:} \StringTok{"100100198801011234"}\FunctionTok{,}
+        \DataTypeTok{"city"}\FunctionTok{:} \StringTok{"Dublin"}\FunctionTok{,}
+        \DataTypeTok{"province"}\FunctionTok{:} \StringTok{"Dublin"}\FunctionTok{,}
+        \DataTypeTok{"country"}\FunctionTok{:} \StringTok{"Ireland"}\FunctionTok{,}
+        \DataTypeTok{"age"}\FunctionTok{:} \DecValTok{66}\FunctionTok{,}
+        \DataTypeTok{"user"}\FunctionTok{:} \StringTok{"5c9d8d23e3d1826c915c2d8b"}\FunctionTok{,}
+        \DataTypeTok{"createdAt"}\FunctionTok{:} \StringTok{"2019-04-27T16:24:56.637Z"}\FunctionTok{,}
+        \DataTypeTok{"updatedAt"}\FunctionTok{:} \StringTok{"2019-04-27T16:24:56.637Z"}\FunctionTok{,}
+        \DataTypeTok{"__v"}\FunctionTok{:} \DecValTok{0}
+    \FunctionTok{\}}
+\FunctionTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+\textbf{FAILURE}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\ErrorTok{HTTP/1.1} \ErrorTok{401} \ErrorTok{Unauthorized}
+\FunctionTok{\{}
+    \DataTypeTok{"err"}\FunctionTok{:} \FunctionTok{\{}
+        \DataTypeTok{"name"}\FunctionTok{:} \StringTok{"UnauthenticatedUserError"}\FunctionTok{,}
+        \DataTypeTok{"message"}\FunctionTok{:} \StringTok{"Not an authorized user"}
+    \FunctionTok{\}}
+\FunctionTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\ErrorTok{HTTP/1.1} \ErrorTok{403} \ErrorTok{Forbidden}
+\FunctionTok{\{}
+    \DataTypeTok{"err"}\FunctionTok{:} \FunctionTok{\{}
+        \DataTypeTok{"name"}\FunctionTok{:} \StringTok{"UnauthorizedUserError"}\FunctionTok{,}
+        \DataTypeTok{"message"}\FunctionTok{:} \StringTok{"You are not authorized as an employee to perform this operation"}
+    \FunctionTok{\}}
+\FunctionTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\ErrorTok{HTTP/1.1} \ErrorTok{500} \ErrorTok{Internal} \ErrorTok{Server} \ErrorTok{Error}
+\FunctionTok{\{}
+    \DataTypeTok{"err"}\FunctionTok{:} \FunctionTok{\{}
+        \DataTypeTok{"name"}\FunctionTok{:} \StringTok{"ProfileExistError"}\FunctionTok{,}
+        \DataTypeTok{"message"}\FunctionTok{:} \StringTok{"Profile has been created"}
+    \FunctionTok{\}}
+\FunctionTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{header-n289}{%
+\paragraph{3. Update A Profile}\label{header-n289}}
+
+\textbf{POST:}
+
+\begin{verbatim}
+/profiles
+\end{verbatim}
+
+\textbf{DESCRIPTION}
+
+Create a profile from the body of requests. Provided to customers.
+
+\textbf{BODY}
+
+\begin{longtable}[]{@{}ccc@{}}
+\toprule
+Field & Type & Description\tabularnewline
+\midrule
+\endhead
+lastname & String & user's lastname\tabularnewline
+firstname & String & user's firstname\tabularnewline
+socialId & String & identification card number\tabularnewline
+gender & String & gender\tabularnewline
+age & Number & age\tabularnewline
+country & String & country name\tabularnewline
+province & String & province name\tabularnewline
+city & String & city name\tabularnewline
+phone & String & format: +{[}area code{]} {[}phone
+number{]}\tabularnewline
+email & String & email address\tabularnewline
+\bottomrule
+\end{longtable}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{\{}
+	\DataTypeTok{"age"}\FunctionTok{:} \DecValTok{71}
+\FunctionTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+\textbf{PARAMETER}
+
+\begin{longtable}[]{@{}ccc@{}}
+\toprule
+Field & Type & Description\tabularnewline
+\midrule
+\endhead
+success & Boolean & Success or failure\tabularnewline
+msg & String & Detailed message\tabularnewline
+\bottomrule
+\end{longtable}
+
+\textbf{SUCCESS}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\ErrorTok{HTTP/1.1} \ErrorTok{200} \ErrorTok{OK}
+\FunctionTok{\{}
+    \DataTypeTok{"success"}\FunctionTok{:} \KeywordTok{true}\FunctionTok{,}
+    \DataTypeTok{"msg"}\FunctionTok{:} \StringTok{"Profile Update Successful!"}\FunctionTok{,}
+    \DataTypeTok{"profile"}\FunctionTok{:} \FunctionTok{\{}
+        \DataTypeTok{"_id"}\FunctionTok{:} \StringTok{"5cc482584048da58d858cd7c"}\FunctionTok{,}
+        \DataTypeTok{"firstname"}\FunctionTok{:} \StringTok{"Steve"}\FunctionTok{,}
+        \DataTypeTok{"lastname"}\FunctionTok{:} \StringTok{"Jobs"}\FunctionTok{,}
+        \DataTypeTok{"gender"}\FunctionTok{:} \StringTok{"male"}\FunctionTok{,}
+        \DataTypeTok{"email"}\FunctionTok{:} \StringTok{"cz.ycaptain@qq.com"}\FunctionTok{,}
+        \DataTypeTok{"phone"}\FunctionTok{:} \StringTok{"+86 18812345678"}\FunctionTok{,}
+        \DataTypeTok{"socialId"}\FunctionTok{:} \StringTok{"100100198801011234"}\FunctionTok{,}
+        \DataTypeTok{"city"}\FunctionTok{:} \StringTok{"Dublin"}\FunctionTok{,}
+        \DataTypeTok{"province"}\FunctionTok{:} \StringTok{"Dublin"}\FunctionTok{,}
+        \DataTypeTok{"country"}\FunctionTok{:} \StringTok{"Ireland"}\FunctionTok{,}
+        \DataTypeTok{"age"}\FunctionTok{:} \DecValTok{71}\FunctionTok{,}
+        \DataTypeTok{"user"}\FunctionTok{:} \StringTok{"5c9d8d23e3d1826c915c2d8b"}\FunctionTok{,}
+        \DataTypeTok{"createdAt"}\FunctionTok{:} \StringTok{"2019-04-27T16:24:56.637Z"}\FunctionTok{,}
+        \DataTypeTok{"updatedAt"}\FunctionTok{:} \StringTok{"2019-04-27T16:25:37.191Z"}\FunctionTok{,}
+        \DataTypeTok{"__v"}\FunctionTok{:} \DecValTok{0}
+    \FunctionTok{\}}
+\FunctionTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+\textbf{FAILURE}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\ErrorTok{HTTP/1.1} \ErrorTok{401} \ErrorTok{Unauthorized}
+\FunctionTok{\{}
+    \DataTypeTok{"err"}\FunctionTok{:} \FunctionTok{\{}
+        \DataTypeTok{"name"}\FunctionTok{:} \StringTok{"UnauthenticatedUserError"}\FunctionTok{,}
+        \DataTypeTok{"message"}\FunctionTok{:} \StringTok{"Not an authorized user"}
+    \FunctionTok{\}}
+\FunctionTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\ErrorTok{HTTP/1.1} \ErrorTok{403} \ErrorTok{Forbidden}
+\FunctionTok{\{}
+    \DataTypeTok{"err"}\FunctionTok{:} \FunctionTok{\{}
+        \DataTypeTok{"name"}\FunctionTok{:} \StringTok{"UnauthorizedUserError"}\FunctionTok{,}
+        \DataTypeTok{"message"}\FunctionTok{:} \StringTok{"You are not authorized as an employee to perform this operation"}
+    \FunctionTok{\}}
+\FunctionTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\ErrorTok{HTTP/1.1} \ErrorTok{500} \ErrorTok{Internal} \ErrorTok{Server} \ErrorTok{Error}
+\FunctionTok{\{}
+    \DataTypeTok{"success"}\FunctionTok{:} \KeywordTok{false}\FunctionTok{,}
+    \DataTypeTok{"err"}\FunctionTok{:} \StringTok{"Internal Server Error"}
+\FunctionTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{header-n362}{%
+\paragraph{Delete Profiles}\label{header-n362}}
+
+\textbf{DELETE:}
+
+\begin{verbatim}
+/profiles[?<query string>]
+\end{verbatim}
+
+\textbf{DESCRIPTION}
+
+Delete profiles of users matched with query string. Only this user or
+employees are able to do this operation.
+
+\textbf{SUCCESS}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\ErrorTok{HTTP/1.1} \ErrorTok{200} \ErrorTok{OK}
+\FunctionTok{\{}
+    \DataTypeTok{"n"}\FunctionTok{:} \DecValTok{1}\FunctionTok{,}
+    \DataTypeTok{"ok"}\FunctionTok{:} \DecValTok{1}\FunctionTok{,}
+    \DataTypeTok{"deletedCount"}\FunctionTok{:} \DecValTok{1}
+\FunctionTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+\textbf{FAILURE}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\ErrorTok{HTTP/1.1} \ErrorTok{401} \ErrorTok{Unauthorized}
+\FunctionTok{\{}
+    \DataTypeTok{"err"}\FunctionTok{:} \FunctionTok{\{}
+        \DataTypeTok{"name"}\FunctionTok{:} \StringTok{"UnauthenticatedUserError"}\FunctionTok{,}
+        \DataTypeTok{"message"}\FunctionTok{:} \StringTok{"Not an authorized user"}
+    \FunctionTok{\}}
+\FunctionTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\ErrorTok{HTTP/1.1} \ErrorTok{403} \ErrorTok{Forbidden}
+\FunctionTok{\{}
+    \DataTypeTok{"err"}\FunctionTok{:} \FunctionTok{\{}
+        \DataTypeTok{"name"}\FunctionTok{:} \StringTok{"UnauthorizedUserError"}\FunctionTok{,}
+        \DataTypeTok{"message"}\FunctionTok{:} \StringTok{"You are not authorized as an employee to perform this operation"}
+    \FunctionTok{\}}
+\FunctionTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\ErrorTok{HTTP/1.1} \ErrorTok{500} \ErrorTok{Internal} \ErrorTok{Server} \ErrorTok{Error}
+\FunctionTok{\{}
+    \DataTypeTok{"success"}\FunctionTok{:} \KeywordTok{false}\FunctionTok{,}
+    \DataTypeTok{"err"}\FunctionTok{:} \StringTok{"Internal Server Error"}
+\FunctionTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{header-n373}{%
+\paragraph{Get A Profile of A User}\label{header-n373}}
+
+\textbf{GET:}
+
+\begin{verbatim}
+/profiles/:username
+\end{verbatim}
+
+\textbf{DESCRIPTION}
+
+Get a profile of a user matched with the username in params of the
+request. Users only get their own profiles.
+
+\textbf{SUCCESS}
+
+\begin{longtable}[]{@{}ccc@{}}
+\toprule
+Field & Type & Description\tabularnewline
+\midrule
+\endhead
+\_id & String & object id of the profile\tabularnewline
+userId & String & object id of an user\tabularnewline
+lastname & String & user's lastname\tabularnewline
+firstname & String & user's firstname\tabularnewline
+socialId & String & identification card number\tabularnewline
+gender & String & gender\tabularnewline
+age & Number & age\tabularnewline
+country & String & country name\tabularnewline
+province & String & province name\tabularnewline
+city & String & city name\tabularnewline
+phone & String & format: +{[}area code{]} {[}phone
+number{]}\tabularnewline
+email & String & email address\tabularnewline
+createdAt & Date & ISO Date\tabularnewline
+updatedAt & Date & ISO Date\tabularnewline
+\bottomrule
+\end{longtable}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\ErrorTok{HTTP/1.1} \ErrorTok{200} \ErrorTok{OK}
+\FunctionTok{\{}
+    \DataTypeTok{"success"}\FunctionTok{:} \KeywordTok{true}\FunctionTok{,}
+    \DataTypeTok{"profile"}\FunctionTok{:} \FunctionTok{\{}
+        \DataTypeTok{"_id"}\FunctionTok{:} \StringTok{"5c7e0af6a60cd62550b700a6"}\FunctionTok{,}
+        \DataTypeTok{"userId"}\FunctionTok{:} \StringTok{"5c7e0afaa60cd62550b700a7"}\FunctionTok{,}
+        \DataTypeTok{"lastname"}\FunctionTok{:} \StringTok{"Yao"}\FunctionTok{,}
+        \DataTypeTok{"firstname"}\FunctionTok{:} \StringTok{"Captain"}\FunctionTok{,}
+        \DataTypeTok{"socialId"}\FunctionTok{:} \StringTok{"123456197007011234"}\FunctionTok{,}
+        \DataTypeTok{"gender"}\FunctionTok{:} \StringTok{"male"}\FunctionTok{,}
+        \DataTypeTok{"age"}\FunctionTok{:} \DecValTok{20}\FunctionTok{,}
+        \DataTypeTok{"country"}\FunctionTok{:} \StringTok{"China"}\FunctionTok{,}
+        \DataTypeTok{"province"}\FunctionTok{:} \StringTok{"Beijing"}\FunctionTok{,}
+        \DataTypeTok{"city"}\FunctionTok{:} \StringTok{"Beijing"}\FunctionTok{,}
+        \DataTypeTok{"phone"}\FunctionTok{:} \StringTok{"+86 18812345678"}\FunctionTok{,}
+        \DataTypeTok{"email"}\FunctionTok{:} \StringTok{"xxxx.xxxx@gmail.com"}\FunctionTok{,}
+        \DataTypeTok{"createdAt"}\FunctionTok{:} \StringTok{"2019-03-15T05:36:59.149Z"}\FunctionTok{,}
+        \DataTypeTok{"updatedAt"}\FunctionTok{:} \StringTok{"2019-03-15T08:24:53.215Z"}
+    \FunctionTok{\}}
+\FunctionTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+\textbf{FAILURE}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\ErrorTok{HTTP/1.1} \ErrorTok{401} \ErrorTok{Unauthorized}
+\FunctionTok{\{}
+    \DataTypeTok{"err"}\FunctionTok{:} \FunctionTok{\{}
+        \DataTypeTok{"name"}\FunctionTok{:} \StringTok{"UnauthenticatedUserError"}\FunctionTok{,}
+        \DataTypeTok{"message"}\FunctionTok{:} \StringTok{"Not an authorized user"}
+    \FunctionTok{\}}
+\FunctionTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\ErrorTok{HTTP/1.1} \ErrorTok{403} \ErrorTok{Forbidden}
+\FunctionTok{\{}
+    \DataTypeTok{"err"}\FunctionTok{:} \FunctionTok{\{}
+        \DataTypeTok{"name"}\FunctionTok{:} \StringTok{"UnauthorizedUserError"}\FunctionTok{,}
+        \DataTypeTok{"message"}\FunctionTok{:} \StringTok{"You are not authorized as an employee to perform this operation"}
+    \FunctionTok{\}}
+\FunctionTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\ErrorTok{HTTP/1.1} \ErrorTok{500} \ErrorTok{Internal} \ErrorTok{Server} \ErrorTok{Error}
+\FunctionTok{\{}
+    \DataTypeTok{"success"}\FunctionTok{:} \KeywordTok{false}\FunctionTok{,}
+    \DataTypeTok{"err"}\FunctionTok{:} \StringTok{"Internal Server Error"}
+\FunctionTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{header-n445}{%
+\paragraph{Update A Profile of A User}\label{header-n445}}
+
+\textbf{PUT:}
+
+\begin{verbatim}
+/profiles/:username
+\end{verbatim}
+
+\textbf{DESCRIPTION}
+
+Update a profile of a user matched with the username in params of the
+request. Users only get their own profiles.
+
+\textbf{PARAMETER}
+
+\begin{longtable}[]{@{}ccc@{}}
+\toprule
+Field & Type & Description\tabularnewline
+\midrule
+\endhead
+\_id & String & object id of the profile\tabularnewline
+userId & String & object id of an user\tabularnewline
+lastname & String & user's lastname\tabularnewline
+firstname & String & user's firstname\tabularnewline
+socialId & String & identification card number\tabularnewline
+gender & String & gender\tabularnewline
+age & Number & age\tabularnewline
+country & String & country name\tabularnewline
+province & String & province name\tabularnewline
+city & String & city name\tabularnewline
+phone & String & format: +{[}area code{]} {[}phone
+number{]}\tabularnewline
+email & String & email address\tabularnewline
+createdAt & Date & ISO Date\tabularnewline
+updatedAt & Date & ISO Date\tabularnewline
+\bottomrule
+\end{longtable}
+
+\textbf{SUCCESS}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\ErrorTok{HTTP/1.1} \ErrorTok{200} \ErrorTok{OK}
+\FunctionTok{\{}
+    \DataTypeTok{"success"}\FunctionTok{:} \KeywordTok{true}
+\FunctionTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+\textbf{FAILURE}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\ErrorTok{HTTP/1.1} \ErrorTok{401} \ErrorTok{Unauthorized}
+\FunctionTok{\{}
+    \DataTypeTok{"err"}\FunctionTok{:} \FunctionTok{\{}
+        \DataTypeTok{"name"}\FunctionTok{:} \StringTok{"UnauthenticatedUserError"}\FunctionTok{,}
+        \DataTypeTok{"message"}\FunctionTok{:} \StringTok{"Not an authorized user"}
+    \FunctionTok{\}}
+\FunctionTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\ErrorTok{HTTP/1.1} \ErrorTok{403} \ErrorTok{Forbidden}
+\FunctionTok{\{}
+    \DataTypeTok{"err"}\FunctionTok{:} \FunctionTok{\{}
+        \DataTypeTok{"name"}\FunctionTok{:} \StringTok{"UnauthorizedUserError"}\FunctionTok{,}
+        \DataTypeTok{"message"}\FunctionTok{:} \StringTok{"You are not authorized as an employee to perform this operation"}
+    \FunctionTok{\}}
+\FunctionTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\ErrorTok{HTTP/1.1} \ErrorTok{500} \ErrorTok{Internal} \ErrorTok{Server} \ErrorTok{Error}
+\FunctionTok{\{}
+    \DataTypeTok{"success"}\FunctionTok{:} \KeywordTok{false}\FunctionTok{,}
+    \DataTypeTok{"err"}\FunctionTok{:} \StringTok{"Internal Server Error"}
+\FunctionTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{header-n518}{%
+\subsubsection{3. Insurances Module}\label{header-n518}}
+
+\hypertarget{header-n519}{%
+\paragraph{1. Get Insurances}\label{header-n519}}
+
+\textbf{GET:}
+
+\begin{verbatim}
+/insurances[?<query string>]
+\end{verbatim}
+
+\textbf{DESCRIPTION}
+
+Authorized users are able to request a list of insurance policies
+\textbf{only they purchased}.
+
+Employees are able to query any insurances.
+
+\textbf{PARAMETER}
+
+\begin{longtable}[]{@{}ccc@{}}
+\toprule
+Field & Type & Description\tabularnewline
+\midrule
+\endhead
+\_id & String & object id of the insurance policy\tabularnewline
+plan & Number & type of plan\tabularnewline
+level & Number & level of the insurance policy\tabularnewline
+startDate & String & ISO Date\tabularnewline
+duration & Number & how many days this policy is active\tabularnewline
+expireDate & Date & ISO Date\tabularnewline
+createdAt & Date & ISO Date\tabularnewline
+updatedAt & Date & ISO Date\tabularnewline
+insured.\_id & String & object id of the insured person\tabularnewline
+lastname & String & insured lastname\tabularnewline
+firstname & String & insured lastname\tabularnewline
+socialId & String & identification card number\tabularnewline
+gender & String & gender\tabularnewline
+age & Number & age\tabularnewline
+phone & String & format: {[}+area code{]} {[}phone
+number{]}\tabularnewline
+email & String & email address\tabularnewline
+bankUserName & String & user's name in the bank\tabularnewline
+bankAccount & String & account\tabularnewline
+bankName & String & name of bank\tabularnewline
+\bottomrule
+\end{longtable}
+
+\textbf{SUCCESS}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\ErrorTok{HTTP/1.1} \ErrorTok{200} \ErrorTok{OK}
+\OtherTok{[}
+    \FunctionTok{\{}
+        \DataTypeTok{"_id"}\FunctionTok{:} \StringTok{"5ca983fa93fe0045257aa2b1"}\FunctionTok{,}
+        \DataTypeTok{"plan"}\FunctionTok{:} \DecValTok{1}\FunctionTok{,}
+        \DataTypeTok{"level"}\FunctionTok{:} \DecValTok{1}\FunctionTok{,}
+        \DataTypeTok{"startDate"}\FunctionTok{:} \StringTok{"2019-03-26T12:41:45.977Z"}\FunctionTok{,}
+        \DataTypeTok{"duration"}\FunctionTok{:} \DecValTok{60}\FunctionTok{,}
+        \DataTypeTok{"expireDate"}\FunctionTok{:} \StringTok{"2019-05-25T12:41:45.977Z"}\FunctionTok{,}
+        \DataTypeTok{"insured"}\FunctionTok{:} \FunctionTok{\{}
+            \DataTypeTok{"_id"}\FunctionTok{:} \StringTok{"5ca983fb93fe0045257aa2b2"}\FunctionTok{,}
+            \DataTypeTok{"lastname"}\FunctionTok{:} \StringTok{"Smith"}\FunctionTok{,}
+            \DataTypeTok{"firstname"}\FunctionTok{:} \StringTok{"Jobs"}\FunctionTok{,}
+            \DataTypeTok{"socialId"}\FunctionTok{:} \StringTok{"100101x12aw3f21waf"}\FunctionTok{,}
+            \DataTypeTok{"gender"}\FunctionTok{:} \StringTok{"male"}\FunctionTok{,}
+            \DataTypeTok{"age"}\FunctionTok{:} \DecValTok{21}\FunctionTok{,}
+            \DataTypeTok{"phone"}\FunctionTok{:} \StringTok{"+86 12345678901"}\FunctionTok{,}
+            \DataTypeTok{"email"}\FunctionTok{:} \StringTok{"qwe.eqw@qw.asd"}\FunctionTok{,}
+            \DataTypeTok{"bankName"}\FunctionTok{:} \StringTok{"Bank of China"}\FunctionTok{,}
+            \DataTypeTok{"bankAccount"}\FunctionTok{:} \StringTok{"1435fw1a3f1wa"}\FunctionTok{,}
+            \DataTypeTok{"bankUsername"}\FunctionTok{:} \StringTok{"Smith Jobs"}\FunctionTok{,}
+            \DataTypeTok{"createdAt"}\FunctionTok{:} \StringTok{"2019-04-07T05:00:43.003Z"}\FunctionTok{,}
+            \DataTypeTok{"updatedAt"}\FunctionTok{:} \StringTok{"2019-04-07T05:00:43.003Z"}
+        \FunctionTok{\},}
+        \DataTypeTok{"user"}\FunctionTok{:} \StringTok{"5c9d8d23e3d1826c915c2d8b"}\FunctionTok{,}
+        \DataTypeTok{"createdAt"}\FunctionTok{:} \StringTok{"2019-04-07T05:00:43.003Z"}\FunctionTok{,}
+        \DataTypeTok{"updatedAt"}\FunctionTok{:} \StringTok{"2019-04-08T05:36:04.778Z"}\FunctionTok{,}
+        \DataTypeTok{"__v"}\FunctionTok{:} \DecValTok{0}\FunctionTok{,}
+        \DataTypeTok{"claim"}\FunctionTok{:} \FunctionTok{\{}
+            \DataTypeTok{"files"}\FunctionTok{:} \OtherTok{[}
+                \StringTok{"1554701764771_5.png"}
+            \OtherTok{]}\FunctionTok{,}
+            \DataTypeTok{"status"}\FunctionTok{:} \StringTok{"pending"}\FunctionTok{,}
+            \DataTypeTok{"_id"}\FunctionTok{:} \StringTok{"5caaddc4247dc15ac1d2b04e"}\FunctionTok{,}
+            \DataTypeTok{"type"}\FunctionTok{:} \DecValTok{1}\FunctionTok{,}
+            \DataTypeTok{"location"}\FunctionTok{:} \StringTok{"Pingleyuan Beijing"}\FunctionTok{,}
+            \DataTypeTok{"date"}\FunctionTok{:} \StringTok{"2019-03-30T12:59:15.306Z"}\FunctionTok{,}
+            \DataTypeTok{"amount"}\FunctionTok{:} \DecValTok{300000}\FunctionTok{,}
+            \DataTypeTok{"reason"}\FunctionTok{:} \StringTok{"I want money!!"}\FunctionTok{,}
+            \DataTypeTok{"insurance"}\FunctionTok{:} \StringTok{"5ca983fa93fe0045257aa2b1"}\FunctionTok{,}
+            \DataTypeTok{"user"}\FunctionTok{:} \StringTok{"5c9d8d23e3d1826c915c2d8b"}\FunctionTok{,}
+            \DataTypeTok{"createdAt"}\FunctionTok{:} \StringTok{"2019-04-08T05:36:04.770Z"}\FunctionTok{,}
+            \DataTypeTok{"updatedAt"}\FunctionTok{:} \StringTok{"2019-04-08T05:36:04.773Z"}\FunctionTok{,}
+            \DataTypeTok{"__v"}\FunctionTok{:} \DecValTok{1}
+        \FunctionTok{\}}
+    \FunctionTok{\}}
+\OtherTok{]}
+\end{Highlighting}
+\end{Shaded}
+
+\textbf{FAILURE}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\ErrorTok{HTTP/1.1} \ErrorTok{401} \ErrorTok{Unauthorized}
+\FunctionTok{\{}
+    \DataTypeTok{"err"}\FunctionTok{:} \FunctionTok{\{}
+        \DataTypeTok{"name"}\FunctionTok{:} \StringTok{"UnauthenticatedUserError"}\FunctionTok{,}
+        \DataTypeTok{"message"}\FunctionTok{:} \StringTok{"Not an authorized user"}
+    \FunctionTok{\}}
+\FunctionTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\ErrorTok{HTTP/1.1} \ErrorTok{403} \ErrorTok{Forbidden}
+\FunctionTok{\{}
+    \DataTypeTok{"err"}\FunctionTok{:} \FunctionTok{\{}
+        \DataTypeTok{"name"}\FunctionTok{:} \StringTok{"UnauthorizedUserError"}\FunctionTok{,}
+        \DataTypeTok{"message"}\FunctionTok{:} \StringTok{"You are not authorized as an employee to perform this operation"}
+    \FunctionTok{\}}
+\FunctionTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\ErrorTok{HTTP/1.1} \ErrorTok{500} \ErrorTok{Internal} \ErrorTok{Server} \ErrorTok{Error}
+\FunctionTok{\{}
+    \DataTypeTok{"success"}\FunctionTok{:} \KeywordTok{false}\FunctionTok{,}
+    \DataTypeTok{"err"}\FunctionTok{:} \StringTok{"Internal Server Error"}
+\FunctionTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{header-n613}{%
+\paragraph{2. Create Insurances}\label{header-n613}}
+
+\textbf{POST:}
+
+\begin{verbatim}
+/insurances
+\end{verbatim}
+
+\textbf{DESCRIPTION}
+
+Authorized users are able to create insurances.
+
+Employees \textbf{cannot} do this method.
+
+\textbf{BODY}
+
+\begin{longtable}[]{@{}ccc@{}}
+\toprule
+Field & Type & Description\tabularnewline
+\midrule
+\endhead
+plan & Number & type of plan\tabularnewline
+level & Number & level of the insurance policy\tabularnewline
+startDate & String & ISO Date\tabularnewline
+duration & Number & how many days this policy is active\tabularnewline
+expireDate & Date & ISO Date\tabularnewline
+lastname & String & insured lastname\tabularnewline
+firstname & String & insured lastname\tabularnewline
+socialId & String & identification card number\tabularnewline
+gender & String & gender\tabularnewline
+age & Number & age\tabularnewline
+phone & String & format: {[}+area code{]} {[}phone
+number{]}\tabularnewline
+email & String & email address\tabularnewline
+bankUserName & String & user's name in the bank\tabularnewline
+bankAccount & String & account\tabularnewline
+bankName & String & name of bank\tabularnewline
+\bottomrule
+\end{longtable}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{\{}
+	\DataTypeTok{"plan"}\FunctionTok{:} \DecValTok{1}\FunctionTok{,}
+	\DataTypeTok{"level"}\FunctionTok{:} \DecValTok{1}\FunctionTok{,}
+	\DataTypeTok{"startDate"}\FunctionTok{:} \StringTok{"2019-03-26T12:41:45.977Z"}\FunctionTok{,}
+	\DataTypeTok{"duration"}\FunctionTok{:} \DecValTok{60}\FunctionTok{,}
+	\DataTypeTok{"expireDate"}\FunctionTok{:} \StringTok{"2019-05-25T12:41:45.977Z"}\FunctionTok{,}
+	\DataTypeTok{"insured"}\FunctionTok{:} \FunctionTok{\{}
+		\DataTypeTok{"lastname"}\FunctionTok{:} \StringTok{"Smith"}\FunctionTok{,}
+		\DataTypeTok{"firstname"}\FunctionTok{:} \StringTok{"Jobs"}\FunctionTok{,}
+		\DataTypeTok{"socialId"}\FunctionTok{:} \StringTok{"100101x12aw3f21waf"}\FunctionTok{,}
+		\DataTypeTok{"gender"}\FunctionTok{:} \StringTok{"male"}\FunctionTok{,}
+		\DataTypeTok{"age"}\FunctionTok{:} \DecValTok{21}\FunctionTok{,}
+		\DataTypeTok{"phone"}\FunctionTok{:} \StringTok{"+86 12345678901"}\FunctionTok{,}
+		\DataTypeTok{"email"}\FunctionTok{:} \StringTok{"qwe.eqw@qw.asd"}\FunctionTok{,}
+		\DataTypeTok{"bankName"}\FunctionTok{:} \StringTok{"Bank of China"}\FunctionTok{,}
+		\DataTypeTok{"bankAccount"}\FunctionTok{:} \StringTok{"1435fw1a3f1wa"}\FunctionTok{,}
+		\DataTypeTok{"bankUsername"}\FunctionTok{:} \StringTok{"Smith Jobs"}
+	\FunctionTok{\}}
+\FunctionTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+\textbf{PARAMETER}
+
+\begin{longtable}[]{@{}ccc@{}}
+\toprule
+FIELD & Type & description\tabularnewline
+\midrule
+\endhead
+success & Boolean & Success or failure\tabularnewline
+msg & String & Detailed message\tabularnewline
+\bottomrule
+\end{longtable}
+
+\textbf{SUCCESS}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\ErrorTok{HTTP/1.1} \ErrorTok{200} \ErrorTok{OK}
+\FunctionTok{\{}
+    \DataTypeTok{"succuss"}\FunctionTok{:} \KeywordTok{true}\FunctionTok{,}
+    \DataTypeTok{"msg"}\FunctionTok{:} \StringTok{"Insurance Creation Successful!"}
+\FunctionTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+\textbf{FAILURE}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\ErrorTok{HTTP/1.1} \ErrorTok{401} \ErrorTok{Unauthorized}
+\FunctionTok{\{}
+    \DataTypeTok{"success"}\FunctionTok{:} \KeywordTok{false}\FunctionTok{,}
+    \DataTypeTok{"err"}\FunctionTok{:} \StringTok{"Unauthorized User"}
+\FunctionTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\ErrorTok{HTTP/1.1} \ErrorTok{403} \ErrorTok{Forbidden}
+\FunctionTok{\{}
+    \DataTypeTok{"err"}\FunctionTok{:} \FunctionTok{\{}
+        \DataTypeTok{"name"}\FunctionTok{:} \StringTok{"UnauthorizedUserError"}\FunctionTok{,}
+        \DataTypeTok{"message"}\FunctionTok{:} \StringTok{"You are not authorized as an employee to perform this operation"}
+    \FunctionTok{\}}
+\FunctionTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\ErrorTok{HTTP/1.1} \ErrorTok{500} \ErrorTok{Internal} \ErrorTok{Server} \ErrorTok{Error}
+\FunctionTok{\{}
+    \DataTypeTok{"success"}\FunctionTok{:} \KeywordTok{false}\FunctionTok{,}
+    \DataTypeTok{"err"}\FunctionTok{:} \StringTok{"Internal Server Error"}
+\FunctionTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{header-n706}{%
+\paragraph{3. Update A Insurance}\label{header-n706}}
+
+\textbf{POST:}
+
+\begin{verbatim}
+/insurances/:insuranceId
+\end{verbatim}
+
+\textbf{DESCRIPTION}
+
+Authorized users are able to update his/her own insurance policy's
+\textbf{plan or level}.
+
+\textbf{BODY}
+
+\begin{longtable}[]{@{}ccc@{}}
+\toprule
+Field & Type & Description\tabularnewline
+\midrule
+\endhead
+plan & Number & type of plan\tabularnewline
+level & Number & level of the insurance policy\tabularnewline
+\bottomrule
+\end{longtable}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{\{}
+	\DataTypeTok{"plan"}\FunctionTok{:} \DecValTok{1}\FunctionTok{,}
+	\DataTypeTok{"level"}\FunctionTok{:} \DecValTok{3}
+\FunctionTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+\textbf{PARAMETER}
+
+\begin{longtable}[]{@{}ccc@{}}
+\toprule
+FIELD & Type & description\tabularnewline
+\midrule
+\endhead
+success & Boolean & Success or failure\tabularnewline
+msg & String & Detailed message\tabularnewline
+\bottomrule
+\end{longtable}
+
+\textbf{SUCCESS}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\ErrorTok{HTTP/1.1} \ErrorTok{200} \ErrorTok{OK}
+\FunctionTok{\{}
+    \DataTypeTok{"_id"}\FunctionTok{:} \StringTok{"5ca4cd2a42bd16460c80ff5a"}\FunctionTok{,}
+    \DataTypeTok{"plan"}\FunctionTok{:} \DecValTok{1}\FunctionTok{,}
+    \DataTypeTok{"level"}\FunctionTok{:} \DecValTok{3}\FunctionTok{,}
+    \DataTypeTok{"startDate"}\FunctionTok{:} \StringTok{"2019-03-26T12:41:45.977Z"}\FunctionTok{,}
+    \DataTypeTok{"duration"}\FunctionTok{:} \DecValTok{60}\FunctionTok{,}
+    \DataTypeTok{"expireDate"}\FunctionTok{:} \StringTok{"2019-05-25T12:41:45.977Z"}\FunctionTok{,}
+    \DataTypeTok{"insured"}\FunctionTok{:} \FunctionTok{\{}
+        \DataTypeTok{"_id"}\FunctionTok{:} \StringTok{"5ca4cd2a42bd16460c80ff5b"}\FunctionTok{,}
+        \DataTypeTok{"lastname"}\FunctionTok{:} \StringTok{"Smith"}\FunctionTok{,}
+        \DataTypeTok{"firstname"}\FunctionTok{:} \StringTok{"Jobs"}\FunctionTok{,}
+        \DataTypeTok{"socialId"}\FunctionTok{:} \StringTok{"100101x12aw3f21waf"}\FunctionTok{,}
+        \DataTypeTok{"gender"}\FunctionTok{:} \StringTok{"male"}\FunctionTok{,}
+        \DataTypeTok{"age"}\FunctionTok{:} \DecValTok{21}\FunctionTok{,}
+        \DataTypeTok{"phone"}\FunctionTok{:} \StringTok{"+86 12345678901"}\FunctionTok{,}
+        \DataTypeTok{"email"}\FunctionTok{:} \StringTok{"qwe.eqw@qw.asd"}\FunctionTok{,}
+        \DataTypeTok{"bankName"}\FunctionTok{:} \StringTok{"Bank of China"}\FunctionTok{,}
+        \DataTypeTok{"bankAccount"}\FunctionTok{:} \StringTok{"1435fw1a3f1wa"}\FunctionTok{,}
+        \DataTypeTok{"bankUsername"}\FunctionTok{:} \StringTok{"Smith Jobs"}\FunctionTok{,}
+        \DataTypeTok{"createdAt"}\FunctionTok{:} \StringTok{"2019-04-03T15:11:38.049Z"}\FunctionTok{,}
+        \DataTypeTok{"updatedAt"}\FunctionTok{:} \StringTok{"2019-04-03T15:11:38.049Z"}
+    \FunctionTok{\},}
+    \DataTypeTok{"user"}\FunctionTok{:} \StringTok{"5c9a1e099d919727e86fd916"}\FunctionTok{,}
+    \DataTypeTok{"createdAt"}\FunctionTok{:} \StringTok{"2019-04-03T15:11:38.050Z"}\FunctionTok{,}
+    \DataTypeTok{"updatedAt"}\FunctionTok{:} \StringTok{"2019-04-08T15:43:01.769Z"}\FunctionTok{,}
+    \DataTypeTok{"__v"}\FunctionTok{:} \DecValTok{0}\FunctionTok{,}
+    \DataTypeTok{"claim"}\FunctionTok{:} \StringTok{"5ca4d1a196c8903f38d53857"}
+\FunctionTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+\textbf{FAILURE}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\ErrorTok{HTTP/1.1} \ErrorTok{401} \ErrorTok{Unauthorized}
+\FunctionTok{\{}
+    \DataTypeTok{"success"}\FunctionTok{:} \KeywordTok{false}\FunctionTok{,}
+    \DataTypeTok{"err"}\FunctionTok{:} \StringTok{"Unauthorized User"}
+\FunctionTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\ErrorTok{HTTP/1.1} \ErrorTok{403} \ErrorTok{Forbidden}
+\FunctionTok{\{}
+    \DataTypeTok{"err"}\FunctionTok{:} \FunctionTok{\{}
+        \DataTypeTok{"name"}\FunctionTok{:} \StringTok{"UnauthorizedUserError"}\FunctionTok{,}
+        \DataTypeTok{"message"}\FunctionTok{:} \StringTok{"You are not authorized as an employee to perform this operation"}
+    \FunctionTok{\}}
+\FunctionTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\ErrorTok{HTTP/1.1} \ErrorTok{500} \ErrorTok{Internal} \ErrorTok{Server} \ErrorTok{Error}
+\FunctionTok{\{}
+    \DataTypeTok{"success"}\FunctionTok{:} \KeywordTok{false}\FunctionTok{,}
+    \DataTypeTok{"err"}\FunctionTok{:} \StringTok{"Internal Server Error"}
+\FunctionTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{header-n746}{%
+\paragraph{4. Delete Insurances}\label{header-n746}}
+
+\textbf{Delete:}
+
+\begin{verbatim}
+/insurances[?<query string>]
+\end{verbatim}
+
+\textbf{DESCRIPTION}
+
+Employees are able to delete insurances.
+
+\textbf{PARAMETER}
+
+\begin{longtable}[]{@{}ccc@{}}
+\toprule
+FIELD & Type & description\tabularnewline
+\midrule
+\endhead
+n & Number & match items count\tabularnewline
+ok & Number & Success or Failure\tabularnewline
+deletedCount & Number & deleted count\tabularnewline
+\bottomrule
+\end{longtable}
+
+\textbf{SUCCESS}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\ErrorTok{HTTP/1.1} \ErrorTok{200} \ErrorTok{OK}
+\FunctionTok{\{}
+    \DataTypeTok{"n"}\FunctionTok{:} \DecValTok{1}\FunctionTok{,}
+    \DataTypeTok{"ok"}\FunctionTok{:} \DecValTok{1}\FunctionTok{,}
+    \DataTypeTok{"deletedCount"}\FunctionTok{:} \DecValTok{1}
+\FunctionTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+\textbf{FAILURE}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\ErrorTok{HTTP/1.1} \ErrorTok{500} \ErrorTok{Internal} \ErrorTok{Server} \ErrorTok{Error}
+\FunctionTok{\{}
+    \DataTypeTok{"success"}\FunctionTok{:} \KeywordTok{false}\FunctionTok{,}
+    \DataTypeTok{"err"}\FunctionTok{:} \StringTok{"Internal Server Error"}
+\FunctionTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{header-n774}{%
+\subsubsection{4. Claim Module}\label{header-n774}}
+
+\hypertarget{header-n775}{%
+\paragraph{1. Get Claims}\label{header-n775}}
+
+\textbf{GET:}
+
+\begin{verbatim}
+/claims[?<query string>]
+\end{verbatim}
+
+\textbf{DESCRIPTION}
+
+Authorized users are able to request a list of \textbf{claims of them}.
+
+Employees are able to query any insurances.
+
+\textbf{PARAMETER}
+
+\begin{longtable}[]{@{}ccc@{}}
+\toprule
+Field & Type & Description\tabularnewline
+\midrule
+\endhead
+\_id & Number & object id of a claim\tabularnewline
+status & String & {[}'accepted', 'rejected', 'processing',
+'pending'{]}\tabularnewline
+type & String & {[}1, 2, 3{]}\tabularnewline
+files & List of String & path of files\tabularnewline
+location & String & accident location\tabularnewline
+date & Date & accident date\tabularnewline
+amount & Number & claim amount\tabularnewline
+reason & String & claim reason\tabularnewline
+rejectReason & String & reject reason\tabularnewline
+user & String & object id of the claimer\tabularnewline
+insurance & String & object id of the insurance\tabularnewline
+createdAt & Date & ISO date\tabularnewline
+updatedAt & Date & ISO date\tabularnewline
+\bottomrule
+\end{longtable}
+
+\textbf{SUCCESS}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\OtherTok{[}\FunctionTok{\{}
+    \DataTypeTok{"files"}\FunctionTok{:} \OtherTok{[}\StringTok{"1554290755783_100.jpg"}\OtherTok{]}\FunctionTok{,}
+    \DataTypeTok{"status"}\FunctionTok{:} \StringTok{"processing"}\FunctionTok{,}
+    \DataTypeTok{"_id"}\FunctionTok{:} \StringTok{"5c9f8b8f1caf490c40aa456f"}\FunctionTok{,}
+    \DataTypeTok{"location"}\FunctionTok{:} \StringTok{"Beijing"}\FunctionTok{,}
+    \DataTypeTok{"date"}\FunctionTok{:} \StringTok{"2019-03-26T15:32:02.230Z"}\FunctionTok{,}
+    \DataTypeTok{"amount"}\FunctionTok{:} \DecValTok{3000}\FunctionTok{,}
+    \DataTypeTok{"reason"}\FunctionTok{:} \StringTok{"I want money"}\FunctionTok{,}
+    \DataTypeTok{"insurance"}\FunctionTok{:} \StringTok{"5c9a5f3223caa630803248c1"}\FunctionTok{,}
+    \DataTypeTok{"user"}\FunctionTok{:} \StringTok{"5c9a1e099d919727e86fd916"}\FunctionTok{,}
+    \DataTypeTok{"employee"}\FunctionTok{:} \StringTok{"5c9a45f189c84c2afc86114d"}\FunctionTok{,}
+    \DataTypeTok{"createdAt"}\FunctionTok{:} \StringTok{"2019-03-30T15:30:23.419Z"}\FunctionTok{,}
+    \DataTypeTok{"updatedAt"}\FunctionTok{:} \StringTok{"2019-03-30T15:30:23.419Z"}
+\FunctionTok{\}}\OtherTok{]}
+\end{Highlighting}
+\end{Shaded}
+
+\textbf{FAILURE}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\ErrorTok{HTTP/1.1} \ErrorTok{401} \ErrorTok{Unauthorized}
+\FunctionTok{\{}
+    \DataTypeTok{"success"}\FunctionTok{:} \KeywordTok{false}\FunctionTok{,}
+    \DataTypeTok{"err"}\FunctionTok{:} \StringTok{"Unauthorized User"}
+\FunctionTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\ErrorTok{HTTP/1.1} \ErrorTok{403} \ErrorTok{Forbidden}
+\FunctionTok{\{}
+    \DataTypeTok{"success"}\FunctionTok{:} \KeywordTok{false}\FunctionTok{,}
+    \DataTypeTok{"err"}\FunctionTok{:} \StringTok{"Forbidden Operation"}
+\FunctionTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\ErrorTok{HTTP/1.1} \ErrorTok{500} \ErrorTok{Internal} \ErrorTok{Server} \ErrorTok{Error}
+\FunctionTok{\{}
+    \DataTypeTok{"success"}\FunctionTok{:} \KeywordTok{false}\FunctionTok{,}
+    \DataTypeTok{"err"}\FunctionTok{:} \StringTok{"Internal Server Error"}
+\FunctionTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{header-n845}{%
+\paragraph{2. Create Claims}\label{header-n845}}
+
+\textbf{POST:}
+
+\begin{verbatim}
+/claims
+\end{verbatim}
+
+\textbf{DESCRIPTION}
+
+Authorized users are able to request a list of \textbf{claims of them}.
+
+Employees are able to query any insurances.
+
+\textbf{BODY}
+
+\begin{longtable}[]{@{}ccc@{}}
+\toprule
+Field & Type & Description\tabularnewline
+\midrule
+\endhead
+type & Number & {[}1, 2, 3{]}\tabularnewline
+location & String & accident location\tabularnewline
+date & Date & accident date\tabularnewline
+amount & Number & claim amount\tabularnewline
+reason & String & claim reason\tabularnewline
+files & File & claim files\tabularnewline
+insurance & String & object id of the insurance\tabularnewline
+\bottomrule
+\end{longtable}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\ErrorTok{//} \ErrorTok{form} \ErrorTok{data}
+\ErrorTok{//} \ErrorTok{key} \ErrorTok{of} \ErrorTok{files} \ErrorTok{can} \ErrorTok{be} \ErrorTok{anything}
+\FunctionTok{\{}
+	\DataTypeTok{"type"}\FunctionTok{:} \DecValTok{1}\FunctionTok{,}
+    \DataTypeTok{"location"}\FunctionTok{:} \StringTok{"Beijing"}\FunctionTok{,}
+	\DataTypeTok{"date"}\FunctionTok{:} \StringTok{"2019-03-26T15:32:02.230Z"}\FunctionTok{,}
+	\DataTypeTok{"amount"}\FunctionTok{:} \DecValTok{3000}\FunctionTok{,}
+	\DataTypeTok{"reason"}\FunctionTok{:} \StringTok{"I want money"}\FunctionTok{,}
+    \DataTypeTok{"file_a"}\FunctionTok{:} \StringTok{"file_a"}\FunctionTok{,}
+    \DataTypeTok{"file_b"}\FunctionTok{:} \StringTok{"file_a"}\FunctionTok{,}
+	\DataTypeTok{"insurance"}\FunctionTok{:} \StringTok{"5c9a5f3223caa630803248c1"}
+\FunctionTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+\textbf{SUCCESS}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\ErrorTok{HTTP/1.1} \ErrorTok{200} \ErrorTok{OK}
+\FunctionTok{\{}
+    \DataTypeTok{"succuss"}\FunctionTok{:} \KeywordTok{true}\FunctionTok{,}
+    \DataTypeTok{"msg"}\FunctionTok{:} \StringTok{"Claim Creation Successful!"}
+\FunctionTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+\textbf{FAILURE}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\ErrorTok{HTTP/1.1} \ErrorTok{401} \ErrorTok{Unauthorized}
+\FunctionTok{\{}
+    \DataTypeTok{"success"}\FunctionTok{:} \KeywordTok{false}\FunctionTok{,}
+    \DataTypeTok{"err"}\FunctionTok{:} \StringTok{"Unauthorized User"}
+\FunctionTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\ErrorTok{HTTP/1.1} \ErrorTok{403} \ErrorTok{Forbidden}
+\FunctionTok{\{}
+    \DataTypeTok{"err"}\FunctionTok{:} \FunctionTok{\{}
+        \DataTypeTok{"name"}\FunctionTok{:} \StringTok{"UnauthorizedUserError"}\FunctionTok{,}
+        \DataTypeTok{"message"}\FunctionTok{:} \StringTok{"You are not authorized as an employee to perform this operation"}
+    \FunctionTok{\}}
+\FunctionTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\ErrorTok{HTTP/1.1} \ErrorTok{500} \ErrorTok{Internal} \ErrorTok{Server} \ErrorTok{Error}
+\FunctionTok{\{}
+    \DataTypeTok{"success"}\FunctionTok{:} \KeywordTok{false}\FunctionTok{,}
+    \DataTypeTok{"err"}\FunctionTok{:} \StringTok{"Internal Server Error"}
+\FunctionTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{header-n892}{%
+\paragraph{3. Delete Claims}\label{header-n892}}
+
+\textbf{DELETE:}
+
+\begin{verbatim}
+/claims[?<query string>]
+\end{verbatim}
+
+\textbf{DESCRIPTION}
+
+Authorized users are able to delete \textbf{claims of them}.
+
+Employees are able to delete any insurances.
+
+\textbf{PARAMETER}
+
+\begin{longtable}[]{@{}ccc@{}}
+\toprule
+Field & Type & Description\tabularnewline
+\midrule
+\endhead
+n & Number & deleted amount\tabularnewline
+ok & Number & Success or Failure\tabularnewline
+\bottomrule
+\end{longtable}
+
+\textbf{SUCCESS}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\ErrorTok{HTTP/1.1} \ErrorTok{200} \ErrorTok{OK}
+\FunctionTok{\{}
+    \DataTypeTok{"n"}\FunctionTok{:} \DecValTok{2}\FunctionTok{,}
+    \DataTypeTok{"ok"}\FunctionTok{:} \DecValTok{1}
+\FunctionTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+\textbf{FAILURE}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\ErrorTok{HTTP/1.1} \ErrorTok{401} \ErrorTok{Unauthorized}
+\FunctionTok{\{}
+    \DataTypeTok{"success"}\FunctionTok{:} \KeywordTok{false}\FunctionTok{,}
+    \DataTypeTok{"err"}\FunctionTok{:} \StringTok{"Unauthorized User"}
+\FunctionTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\ErrorTok{HTTP/1.1} \ErrorTok{403} \ErrorTok{Forbidden}
+\FunctionTok{\{}
+    \DataTypeTok{"err"}\FunctionTok{:} \FunctionTok{\{}
+        \DataTypeTok{"name"}\FunctionTok{:} \StringTok{"UnauthorizedUserError"}\FunctionTok{,}
+        \DataTypeTok{"message"}\FunctionTok{:} \StringTok{"You are not authorized as an employee to perform this operation"}
+    \FunctionTok{\}}
+\FunctionTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\ErrorTok{HTTP/1.1} \ErrorTok{500} \ErrorTok{Internal} \ErrorTok{Server} \ErrorTok{Error}
+\FunctionTok{\{}
+    \DataTypeTok{"success"}\FunctionTok{:} \KeywordTok{false}\FunctionTok{,}
+    \DataTypeTok{"err"}\FunctionTok{:} \StringTok{"Internal Server Error"}
+\FunctionTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{header-n918}{%
+\paragraph{4. Assign a Claim}\label{header-n918}}
+
+\textbf{GET:}
+
+\begin{verbatim}
+/claims/assign/:claimId
+\end{verbatim}
+
+\textbf{DESCRIPTION}
+
+Employees are able to assign a claim to himself.
+
+\textbf{PARAMETER}
+
+\begin{longtable}[]{@{}ccc@{}}
+\toprule
+Field & Type & Description\tabularnewline
+\midrule
+\endhead
+success & Boolean & Success or Failure\tabularnewline
+msg & String & message\tabularnewline
+\bottomrule
+\end{longtable}
+
+\textbf{SUCCESS}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\ErrorTok{HTTP/1.1} \ErrorTok{200} \ErrorTok{OK}
+\FunctionTok{\{}
+    \DataTypeTok{"success"}\FunctionTok{:} \KeywordTok{true}\FunctionTok{,}
+    \DataTypeTok{"msg"}\FunctionTok{:} \StringTok{"Claim Assignment Successful!"}
+\FunctionTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+\textbf{FAILURE}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\ErrorTok{HTTP/1.1} \ErrorTok{401} \ErrorTok{Unauthorized}
+\FunctionTok{\{}
+    \DataTypeTok{"success"}\FunctionTok{:} \KeywordTok{false}\FunctionTok{,}
+    \DataTypeTok{"err"}\FunctionTok{:} \StringTok{"Unauthorized User"}
+\FunctionTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\ErrorTok{HTTP/1.1} \ErrorTok{401} \ErrorTok{Unauthorized}
+\FunctionTok{\{}
+    \DataTypeTok{"err"}\FunctionTok{:} \FunctionTok{\{}
+        \DataTypeTok{"name"}\FunctionTok{:} \StringTok{"UnauthorizedError"}\FunctionTok{,}
+        \DataTypeTok{"message"}\FunctionTok{:} \StringTok{"Claim has been assigned to another employee"}
+    \FunctionTok{\}}
+\FunctionTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\ErrorTok{HTTP/1.1} \ErrorTok{500} \ErrorTok{Internal} \ErrorTok{Server} \ErrorTok{Error}
+\FunctionTok{\{}
+    \DataTypeTok{"err"}\FunctionTok{:} \FunctionTok{\{}
+        \DataTypeTok{"name"}\FunctionTok{:} \StringTok{"ClaimNotPendingError"}\FunctionTok{,}
+        \DataTypeTok{"message"}\FunctionTok{:} \StringTok{"A claim cannot be assigned again"}
+    \FunctionTok{\}}
+\FunctionTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{header-n943}{%
+\paragraph{5. Accept a Claim}\label{header-n943}}
+
+\textbf{GET:}
+
+\begin{verbatim}
+/claims/accept/:claimId
+\end{verbatim}
+
+\textbf{DESCRIPTION}
+
+Employees are able to accept a claim which has been assigned to him.
+
+\textbf{PARAMETER}
+
+\begin{longtable}[]{@{}ccc@{}}
+\toprule
+Field & Type & Description\tabularnewline
+\midrule
+\endhead
+success & Boolean & Success or Failure\tabularnewline
+msg & String & message\tabularnewline
+\bottomrule
+\end{longtable}
+
+\textbf{SUCCESS}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\ErrorTok{HTTP/1.1} \ErrorTok{200} \ErrorTok{OK}
+\FunctionTok{\{}
+    \DataTypeTok{"success"}\FunctionTok{:} \KeywordTok{true}\FunctionTok{,}
+    \DataTypeTok{"msg"}\FunctionTok{:} \StringTok{"Claim Acception Successful!"}
+\FunctionTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+\textbf{FAILURE}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\ErrorTok{HTTP/1.1} \ErrorTok{401} \ErrorTok{Unauthorized}
+\FunctionTok{\{}
+    \DataTypeTok{"success"}\FunctionTok{:} \KeywordTok{false}\FunctionTok{,}
+    \DataTypeTok{"err"}\FunctionTok{:} \StringTok{"Unauthorized User"}
+\FunctionTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\ErrorTok{HTTP/1.1} \ErrorTok{401} \ErrorTok{Unauthorized}
+\FunctionTok{\{}
+    \DataTypeTok{"err"}\FunctionTok{:} \FunctionTok{\{}
+        \DataTypeTok{"name"}\FunctionTok{:} \StringTok{"UnauthorizedError"}\FunctionTok{,}
+        \DataTypeTok{"message"}\FunctionTok{:} \StringTok{"Claim has been assigned to another employee"}
+    \FunctionTok{\}}
+\FunctionTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\ErrorTok{HTTP/1.1} \ErrorTok{500} \ErrorTok{Internal} \ErrorTok{Server} \ErrorTok{Error}
+\FunctionTok{\{}
+    \DataTypeTok{"err"}\FunctionTok{:} \FunctionTok{\{}
+        \DataTypeTok{"name"}\FunctionTok{:} \StringTok{"ClaimNotPendingError"}\FunctionTok{,}
+        \DataTypeTok{"message"}\FunctionTok{:} \StringTok{"A claim cannot be assigned again"}
+    \FunctionTok{\}}
+\FunctionTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{header-n968}{%
+\paragraph{6. Reject a Claim}\label{header-n968}}
+
+\textbf{POST:}
+
+\begin{verbatim}
+/claims/reject/:claimId
+\end{verbatim}
+
+\textbf{DESCRIPTION}
+
+Employees are able to reject a claim which has been assigned to him.
+
+\textbf{BODY}
+
+\begin{longtable}[]{@{}ccc@{}}
+\toprule
+FIELD & TYPE & DESCRIPTION\tabularnewline
+\midrule
+\endhead
+rejectReson & String & reject reson\tabularnewline
+\bottomrule
+\end{longtable}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{\{}
+	\DataTypeTok{"rejectReason"}\FunctionTok{:} \StringTok{"Please give detailed reson and file a new claim"}
+\FunctionTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+\textbf{PARAMETER}
+
+\begin{longtable}[]{@{}ccc@{}}
+\toprule
+Field & Type & Description\tabularnewline
+\midrule
+\endhead
+success & Boolean & Success or Failure\tabularnewline
+msg & String & message\tabularnewline
+\bottomrule
+\end{longtable}
+
+\textbf{SUCCESS}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\ErrorTok{HTTP/1.1} \ErrorTok{200} \ErrorTok{OK}
+\FunctionTok{\{}
+    \DataTypeTok{"success"}\FunctionTok{:} \KeywordTok{true}\FunctionTok{,}
+    \DataTypeTok{"msg"}\FunctionTok{:} \StringTok{"Claim Rejection Successful!"}
+\FunctionTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+\textbf{FAILURE}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\ErrorTok{HTTP/1.1} \ErrorTok{401} \ErrorTok{Unauthorized}
+\FunctionTok{\{}
+    \DataTypeTok{"success"}\FunctionTok{:} \KeywordTok{false}\FunctionTok{,}
+    \DataTypeTok{"err"}\FunctionTok{:} \StringTok{"Unauthorized User"}
+\FunctionTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\ErrorTok{HTTP/1.1} \ErrorTok{401} \ErrorTok{Unauthorized}
+\FunctionTok{\{}
+    \DataTypeTok{"err"}\FunctionTok{:} \FunctionTok{\{}
+        \DataTypeTok{"name"}\FunctionTok{:} \StringTok{"UnauthorizedError"}\FunctionTok{,}
+        \DataTypeTok{"message"}\FunctionTok{:} \StringTok{"Claim has been assigned to another employee"}
+    \FunctionTok{\}}
+\FunctionTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\ErrorTok{HTTP/1.1} \ErrorTok{500} \ErrorTok{Internal} \ErrorTok{Server} \ErrorTok{Error}
+\FunctionTok{\{}
+    \DataTypeTok{"err"}\FunctionTok{:} \FunctionTok{\{}
+        \DataTypeTok{"name"}\FunctionTok{:} \StringTok{"NoRejectResonError"}\FunctionTok{,}
+        \DataTypeTok{"message"}\FunctionTok{:} \StringTok{"No reject reson given"}
+    \FunctionTok{\}}
+\FunctionTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\ErrorTok{HTTP/1.1} \ErrorTok{500} \ErrorTok{Internal} \ErrorTok{Server} \ErrorTok{Error}
+\FunctionTok{\{}
+    \DataTypeTok{"err"}\FunctionTok{:} \FunctionTok{\{}
+        \DataTypeTok{"name"}\FunctionTok{:} \StringTok{"ClaimNotPendingError"}\FunctionTok{,}
+        \DataTypeTok{"message"}\FunctionTok{:} \StringTok{"A claim cannot be assigned again"}
+    \FunctionTok{\}}
+\FunctionTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{header-n1006}{%
+\subsubsection{5. Resources Module}\label{header-n1006}}
+
+\hypertarget{header-n1007}{%
+\paragraph{1. Get Claim Files}\label{header-n1007}}
+
+\textbf{GET:}
+
+\begin{verbatim}
+/res/claim-files/:claimId/:filename
+\end{verbatim}
+
+\textbf{DESCRIPTION}
+
+Download a file of a claim. Only owner or employee who covers this case
+is able to access to the file.
+
+\textbf{SUCCESS}
+
+\begin{verbatim}
+HTTP/1.1 200 OK
+// file data
+\end{verbatim}
+
+\textbf{FAILURE}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\ErrorTok{HTTP/1.1} \ErrorTok{401} \ErrorTok{Unauthorized}
+\FunctionTok{\{}
+    \DataTypeTok{"success"}\FunctionTok{:} \KeywordTok{false}\FunctionTok{,}
+    \DataTypeTok{"err"}\FunctionTok{:} \StringTok{"Unauthorized User"}
+\FunctionTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\ErrorTok{HTTP/1.1} \ErrorTok{500} \ErrorTok{Internal} \ErrorTok{Server} \ErrorTok{Error}
+\FunctionTok{\{}
+    \DataTypeTok{"success"}\FunctionTok{:} \KeywordTok{false}\FunctionTok{,}
+    \DataTypeTok{"err"}\FunctionTok{:} \StringTok{"Internal Server Error"}
+\FunctionTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+\end{document}

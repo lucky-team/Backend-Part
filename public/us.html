@@ -1,0 +1,102 @@
+<!DOCTYPE HTML>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+	<title>Our Love Story</title>
+	<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+	<style type="text/css">
+		@font-face {
+			font-family: digit;
+			src: url('digital-7_mono.ttf') format("truetype");
+		}
+	</style>
+	<link href="css/default.css" type="text/css" rel="stylesheet">
+	<script type="text/javascript" src="js/jquery.js"></script>
+	<script type="text/javascript" src="js/garden.js"></script>
+    <script type="text/javascript" src="js/functions.js"></script>
+</head>
+
+<body>
+	<div id="mainDiv">
+		<div id="content">
+			<div id="code">
+				<span class="comments">/**</span><br />
+				<span class="space"/><span class="comments">* 有一句话</span><br />
+				<span class="space"/><span class="comments">* 不接受任何反驳</span><br />
+				<span class="space"/><span class="comments">* 我有一个世界上最好的女朋友</span><br />
+				<span class="space"/><span class="comments">* (๑′ᴗ‵๑)Ｉ Lᵒᵛᵉᵧₒᵤ❤</span><br />
+				<span class="space"/><span class="comments">*/</span><br />
+				Boy i = <span class="keyword">new</span> Boy(<span class="string">"陈真"</span>);<br />
+				Girl u = <span class="keyword">new</span> Girl(<span class="string">"小洲"</span>);<br />
+				<span class="comments">// 我们相识于去年11月7号 </span><br />
+				i.meet(u);<br />
+				<span class="comments">// 那天，我认识了一名看着乖乖的，眼神很灵动，没有留刘海，没有化妆</span><br />
+				<span class="comments">// 一身运动服，看着十分柔弱，像是个初中生的她</span><br />
+				<span class="comments">// 她在通州校区，每周只有一两天会来主校区 </span><br />
+				<span class="comments">// 我们开始天天在微信上聊天 </span><br />
+				<span class="comments">// 约自习，约运动，约吃饭，还在阿姨的助攻下，第一次送她回宿舍 </span><br />
+				i.liveWith(u);<br />
+				<span class="comments">// 过了三周，我说，你应该也知道了吧，不过我还是打算说出来 </span><br />
+				<span class="comments">// 我喜欢你，做我女朋友吧</span><br />
+				i.love(u);<br />
+				<span class="comments">// 很幸运，你接受了我! </span><br />
+				u.love(i);<br />
+				<span class="comments">// 在那之后 </span><br />
+				<span class="comments">// 我喜欢每天吃饭和你说真香 </span><br />
+				<span class="comments">// 喜欢和你一起看论文 </span><br />
+				<span class="comments">// 喜欢和你一起写程序 </span><br />
+				<span class="comments">// 虽然你总是傻fufu的 </span><br />
+				<span class="keyword">while</span> (1) {<br />
+					<span class="placeholder"/><span class="comments">// 我还是永远想着你，爱着你 </span><br />
+					<span class="placeholder"/>i.missAndLove(u);<br />
+				}<br />
+			</div>
+			<div id="loveHeart">
+				<canvas id="garden"></canvas>
+				<div id="words">
+					<div id="messages">
+						小洲, we have fallen in love for
+						<div id="elapseClock"></div>
+					</div>
+					<div id="loveu">
+						Love u forever and ever.<br/>
+						<div class="signature">- 陈真</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<script type="text/javascript">
+		var offsetX = $("#loveHeart").width() / 2;
+		var offsetY = $("#loveHeart").height() / 2 - 55;
+		var together = new Date();
+		together.setFullYear(2018, 11, 28);
+		together.setHours(20);
+		together.setMinutes(0);
+		together.setSeconds(0);
+		together.setMilliseconds(0);
+		
+		if (!document.createElement('canvas').getContext) {
+			var msg = document.createElement("div");
+			msg.id = "errorMsg";
+			msg.innerHTML = "Your browser doesn't support HTML5!<br/>Recommend use Chrome 14+/IE 9+/Firefox 7+/Safari 4+"; 
+			document.body.appendChild(msg);
+			$("#code").css("display", "none")
+			$("#copyright").css("position", "absolute");
+			$("#copyright").css("bottom", "10px");
+		    document.execCommand("stop");
+		} else {
+			setTimeout(function () {
+				startHeartAnimation();
+			}, 5000);
+
+			timeElapse(together);
+			setInterval(function () {
+				timeElapse(together);
+			}, 500);
+
+			adjustCodePosition();
+			$("#code").typewriter();
+		}
+	</script>
+</body>
+</html>
