@@ -29,6 +29,7 @@ connect.then((db) => {
 }, (err) => { console.log(err); });
 
 var app = express();
+app.set('env', 'deployment');
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
